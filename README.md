@@ -6,7 +6,6 @@
 
 Swift3 で実装し直す際に、汎用的で拡張しやすいようにクラスを再設計した。ページメニューの見た目だけが違うので、スタイルごとに PMKPageMenuItem のサブクラスを実装し、それを利用する仕組みにした。
 
-
 ## How to use PageMenuKit.framework
 
 Xcode の Build Target に PageMenuKitFatBinary を指定して Build を実行すると、PageMenuKit.framework が作成される。これを自作アプリの Xcode の Project で設定する。
@@ -85,7 +84,7 @@ class RootViewController: UIViewController
 
 
 
-**4) Delegate Methods (optional)**
+## Delegate Methods (optional)
 
 ページの切り替え時に呼び出される Delegate を使うことも可能。
 
@@ -109,6 +108,10 @@ public protocol PMKPageMenuControllerDelegate: class
   func pageMenuController(_ pageMenuController: PMKPageMenuController, didSelect menuItem: PMKPageMenuItem, at menuIndex: Int)
 }
 ```
+
+## References
+
+Qiita の[ニュース系アプリのユーザインタフェース PageMenuKit の実装（Swift 版）](http://qiita.com/magickworx/items/5de63eb926a9447b2665) も見てね。
 
 ## Requirements
 
@@ -140,3 +143,4 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
