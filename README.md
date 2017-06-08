@@ -43,35 +43,43 @@ class RootViewController: UIViewController
 
 ## Available Menu Styles
 
-**menuStyle: .Plain （[ニュースパス](https://itunes.apple.com/jp/app/id1106788059?mt=8)っぽいメニュー画面）**
+### .Plain
+[ニュースパス](https://itunes.apple.com/jp/app/id1106788059?mt=8)っぽいメニュー画面
 
 ![.Plain](screenshots/tab_Plain.png "ニュースパス")
 
-**menuStyle: .Tab （[グノシー](https://itunes.apple.com/jp/app/id590384791?mt=8)っぽいメニュー画面）**
+### .Tab
+[グノシー](https://itunes.apple.com/jp/app/id590384791?mt=8)っぽいメニュー画面
 
 ![.Tab](screenshots/tab_Tab.png "グノシー")
 
-**menuStyle: .Smart （[SmartNews](https://itunes.apple.com/jp/app/id579581125?mt=8)っぽいメニュー画面）**
+### .Smart
+[SmartNews](https://itunes.apple.com/jp/app/id579581125?mt=8)っぽいメニュー画面
 
 ![.Smart](screenshots/tab_Smart.png "SmartNews")
 
-**menuStyle: .Hacka （[ハッカドール](https://itunes.apple.com/jp/app/id888231424?mt=8)っぽいメニュー画面）**
+### .Hacka
+[ハッカドール](https://itunes.apple.com/jp/app/id888231424?mt=8)っぽいメニュー画面
 
 ![.Hacka](screenshots/tab_Hacka.png "ハッカドール")
 
-**menuStyle: .Web （[JCnew](https://itunes.apple.com/jp/app/id1024341813?mt=8)っぽいメニュー画面）**
+### .Web
+[JCnew](https://itunes.apple.com/jp/app/id1024341813?mt=8)っぽいメニュー画面
 
 ![.Ellipse](screenshots/tab_Ellipse.png "JCnews iOS App")
 
-**menuStyle: .Ellipse （[JCnew のウェブサイト](https://jcnews.tokyo/)っぽいメニュー画面）**
+### .Ellipse
+[JCnew のウェブサイト](https://jcnews.tokyo/)っぽいメニュー画面
 
 ![.Web](screenshots/tab_Web.png "JCnews ウェブサイト")
 
-**menuStyle: .Suite （[NewsSuite](https://itunes.apple.com/jp/app/id1176431318?mt=8)っぽいメニュー画面）**
+### .Suite
+[NewsSuite](https://itunes.apple.com/jp/app/id1176431318?mt=8)っぽいメニュー画面
 
 ![.Suite](screenshots/tab_Suite.png "ニュース（NewsSuite）")
 
-**menuStyle: .NetLab （[ねとらぼ](https://itunes.apple.com/jp/app/id949325541?mt=8)っぽいメニュー画面）**
+### .NetLab
+[ねとらぼ](https://itunes.apple.com/jp/app/id949325541?mt=8)っぽいメニュー画面
 
 ![.NetLab](screenshots/tab_NetLab.png "ねとらぼ")
 
