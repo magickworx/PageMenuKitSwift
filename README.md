@@ -2,9 +2,10 @@
 
 [PageMenuController](https://github.com/magickworx/PageMenuController) の Swift 版。
 
-日本のニュース系アプリで使われている横スクロールのメニュー画面とそのコンテンツを表示するユーザインタフェースのクラス。Xcode のプロジェクト一式を登録してあるので、実行すればシミュレータ上で動作確認が可能。
+日本のニュース系アプリで使われている横スクロールのメニュー画面とそのコンテンツを表示するユーザインタフェースのクラス。
+Xcode のプロジェクト一式を登録してあるので、実行すればシミュレータ上で動作確認が可能。
 
-Swift3 で実装し直す際に、汎用的で拡張しやすいようにクラスを再設計した。ページメニューの見た目だけが違うので、スタイルごとに PMKPageMenuItem のサブクラスを実装し、それを利用する仕組みにした。
+Swift3 で実装し直す際に、汎用的で拡張しやすいようにクラスを再設計した。ページメニューの見た目だけが違うので、スタイルごとに PMKPageMenuItem のサブクラスを実装し、それを利用する仕組みにした。よって、簡単にカスタムメニューを追加できる。
 
 ## How to use PageMenuKit.framework
 
@@ -29,6 +30,11 @@ class RootViewController: UIViewController
     }
 
     let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
+    /*
+     * Available menu styles:
+     * .Plain, .Tab, .Smart, .Hacka, .Ellipse, .Web, .Suite and .NetLab
+     * See PMKPageMenuItem.swift in PageMenuKit folder.
+     */
     pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Smart, topBarHeight: statusBarHeight)
     self.addChildViewController(pageMenuController!)
     self.view.addSubview(pageMenuController!.view)
@@ -37,7 +43,7 @@ class RootViewController: UIViewController
 }
 ```
 
-より詳細なコードは RootViewController.swift を見てね。
+より詳細なコードは PageMenuKitDemo 内の RootViewController.swift を見てね。
 
 
 ## Available Menu Styles
@@ -112,7 +118,7 @@ public protocol PMKPageMenuControllerDelegate: class
 
 ## References
 
-Qiita の[ニュース系アプリのユーザインタフェース PageMenuKit の実装（Swift 版）](http://qiita.com/magickworx/items/5de63eb926a9447b2665) も見てね。カスタムメニューの実装方法についても書いてあるよ。
+Qiita の[ニュース系アプリのユーザインタフェース PageMenuKit の実装](http://qiita.com/magickworx/items/5de63eb926a9447b2665) も見てね。カスタムメニューの実装方法についても書いてあるよ。
 
 ## Requirements
 
