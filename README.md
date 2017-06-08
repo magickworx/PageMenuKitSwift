@@ -63,12 +63,12 @@ class RootViewController: UIViewController
 ![.Hacka](screenshots/tab_Hacka.png "ハッカドール")
 
 ### .Web
-[JCnew](https://itunes.apple.com/jp/app/id1024341813?mt=8)っぽいメニュー画面
+[JCnews](https://itunes.apple.com/jp/app/id1024341813?mt=8)っぽいメニュー画面
 
 ![.Ellipse](screenshots/tab_Ellipse.png "JCnews iOS App")
 
 ### .Ellipse
-[JCnew のウェブサイト](https://jcnews.tokyo/)っぽいメニュー画面
+[JCnews のウェブサイト](https://jcnews.tokyo/)っぽいメニュー画面
 
 ![.Web](screenshots/tab_Web.png "JCnews ウェブサイト")
 
@@ -93,6 +93,7 @@ pageMenuController?.delegate = self
 ```
 
 上記のような記述を追加して、必要に応じて以下のメソッドを実装してね。
+現時点では、 **.Hacka** スタイルのバッジ表示の際に利用しているだけ。
 
 ```PMKPageMenuControllerDelegte.swift
 public protocol PMKPageMenuControllerDelegate: class
@@ -111,7 +112,7 @@ public protocol PMKPageMenuControllerDelegate: class
 
 ## References
 
-Qiita の[ニュース系アプリのユーザインタフェース PageMenuKit の実装（Swift 版）](http://qiita.com/magickworx/items/5de63eb926a9447b2665) も見てね。
+Qiita の[ニュース系アプリのユーザインタフェース PageMenuKit の実装（Swift 版）](http://qiita.com/magickworx/items/5de63eb926a9447b2665) も見てね。カスタムメニューの実装方法についても書いてあるよ。
 
 ## Requirements
 
