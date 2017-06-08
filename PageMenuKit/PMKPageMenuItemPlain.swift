@@ -3,7 +3,7 @@
  * FILE:	PMKPageMenuItemPlain.swift
  * DESCRIPTION:	PageMenuKit: PageMenuItem Class like "ニュースパス"
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Wed, Jun  7 2017
+ * UPDATED:	Thu, Jun  8 2017
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
@@ -54,7 +54,6 @@ public class PMKPageMenuItemPlain: PMKPageMenuItem {
     self.style = .Plain
 
     self.titleColor = color
-//    self.label?.backgroundColor = .clear
   }
 
   override func render(active: Bool) {

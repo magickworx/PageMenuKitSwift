@@ -263,6 +263,7 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
 // MARK: - Prepartions
 extension PMKPageMenuController
 {
+  // CUSTOM: Add the settings for your custom menu style here.
   func prepareForMenuStyle(_ menuStyle: PMKPageMenuControllerStyle) {
     switch (menuStyle) {
       case .Plain:
@@ -300,6 +301,63 @@ extension PMKPageMenuController
     }
   }
 
+  // CUSTOM: Add the separator color for your custom menu style if needed.
+  func prepareForMenuSeparator() {
+    if var menuColor: UIColor = self.menuColors.first {
+      let  width: CGFloat = self.scrollView!.contentSize.width
+      let height: CGFloat = self.scrollView!.frame.size.height
+
+      let x: CGFloat = 0.0
+      var y: CGFloat = height
+      let w: CGFloat = width
+      let h: CGFloat = self.separatorHeight
+
+      switch (menuStyle) {
+        case .Plain, .Web:
+          menuColor = .orange
+        case .Hacka:
+          menuColor = UIColor.hexColor(kHackaHexColor)
+        default: break
+      }
+      y = height - h
+
+      let layer: CALayer = CALayer()
+      layer.frame = CGRect(x: x, y: y, width: w, height: h)
+      layer.actions = [ "backgroundColor" : NSNull() ]
+      layer.backgroundColor = menuColor.cgColor
+      self.scrollView?.layer.addSublayer(layer)
+      self.menuSeparator = layer
+    }
+  }
+
+  // CUSTOM: Add the indicator color for your custom menu style if needed.
+  func prepareForMenuIndicator() {
+    let x: CGFloat = 0.0
+    let y: CGFloat = self.scrollView!.frame.size.height - self.indicatorHeight
+    var w: CGFloat = kMenuItemWidth
+    let h: CGFloat = self.indicatorHeight
+
+    var color: UIColor? = self.menuColors.first
+    switch (menuStyle) {
+      case .Plain:
+        color = .orange
+      case .Tab, .Smart:
+        w = self.scrollView!.contentSize.width
+      case .Hacka:
+        color = UIColor.hexColor(kHackaHexColor)
+      case .Suite:
+        color = UIColor.hexColor(0x7ab7cc)
+      default:
+        break
+    }
+
+    let menuIndicator: UIView
+    menuIndicator = UIView(frame: CGRect(x: x, y: y, width: w, height: h))
+    menuIndicator.backgroundColor = color
+    self.scrollView?.addSubview(menuIndicator)
+    self.menuIndicator = menuIndicator
+  }
+
   func handleSingleTap(_ gesture: UITapGestureRecognizer) {
     if var index: Int = gesture.view?.tag {
       index -= kMenuItemBaseTag
@@ -311,6 +369,7 @@ extension PMKPageMenuController
     }
   }
 
+  // CUSTOM: Add the code to create instance of your custom menu style.
   func prepareForMenuItems() {
     self.menuItems = []
 
@@ -370,61 +429,6 @@ extension PMKPageMenuController
       frame.size.width = width
     }
     self.scrollView?.frame = frame
-  }
-
-  func prepareForMenuSeparator() {
-    if var menuColor: UIColor = self.menuColors.first {
-      let  width: CGFloat = self.scrollView!.contentSize.width
-      let height: CGFloat = self.scrollView!.frame.size.height
-
-      let x: CGFloat = 0.0
-      var y: CGFloat = height
-      let w: CGFloat = width
-      let h: CGFloat = self.separatorHeight
-
-      switch (menuStyle) {
-        case .Plain, .Web:
-          menuColor = .orange
-        case .Hacka:
-          menuColor = UIColor.hexColor(kHackaHexColor)
-        default: break
-      }
-      y = height - h
-
-      let layer: CALayer = CALayer()
-      layer.frame = CGRect(x: x, y: y, width: w, height: h)
-      layer.actions = [ "backgroundColor" : NSNull() ]
-      layer.backgroundColor = menuColor.cgColor
-      self.scrollView?.layer.addSublayer(layer)
-      self.menuSeparator = layer
-    }
-  }
-
-  func prepareForMenuIndicator() {
-    let x: CGFloat = 0.0
-    let y: CGFloat = self.scrollView!.frame.size.height - self.indicatorHeight
-    var w: CGFloat = kMenuItemWidth
-    let h: CGFloat = self.indicatorHeight
-
-    var color: UIColor? = self.menuColors.first
-    switch (menuStyle) {
-      case .Plain:
-        color = .orange
-      case .Tab, .Smart:
-        w = self.scrollView!.contentSize.width
-      case .Hacka:
-        color = UIColor.hexColor(kHackaHexColor)
-      case .Suite:
-        color = UIColor.hexColor(0x7ab7cc)
-      default:
-        break
-    }
-
-    let menuIndicator: UIView
-    menuIndicator = UIView(frame: CGRect(x: x, y: y, width: w, height: h))
-    menuIndicator.backgroundColor = color
-    self.scrollView?.addSubview(menuIndicator)
-    self.menuIndicator = menuIndicator
   }
 
 }

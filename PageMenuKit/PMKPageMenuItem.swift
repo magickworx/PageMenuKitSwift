@@ -43,6 +43,7 @@
 import UIKit
 import QuartzCore
 
+// CUSTOM: Add your custom menu style here.
 public enum PMKPageMenuControllerStyle: Int {
   case Plain   = 1 // NewsPass  [https://itunes.apple.com/jp/app/id1106788059]
   case Tab     = 2 // Gunosy    [https://itunes.apple.com/jp/app/id590384791]
