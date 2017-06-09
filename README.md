@@ -34,8 +34,10 @@ class RootViewController: UIViewController
      * Available menu styles:
      * .Plain, .Tab, .Smart, .Hacka, .Ellipse, .Web, .Suite, .NetLab and .NHK
      * See PMKPageMenuItem.swift in PageMenuKit folder.
+     *
+     * menuColors: [] means that we will use the default colors
      */
-    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Smart, topBarHeight: statusBarHeight)
+    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Smart, menuColors: [], topBarHeight: statusBarHeight)
     self.addChildViewController(pageMenuController!)
     self.view.addSubview(pageMenuController!.view)
     pageMenuController?.didMove(toParentViewController: self)
@@ -130,6 +132,10 @@ Qiita の[ニュース系アプリのユーザインタフェース PageMenuKit 
  - Swift3
  - iOS 10.3 or later
  - Xcode 8.3 or later
+
+## ToDo
+
+ - .Suite と .Web と .NetLab スタイルのカスタマイズ方法
 
 ## License Agreement
 
