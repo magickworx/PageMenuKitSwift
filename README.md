@@ -109,6 +109,15 @@ PMKPageMenuController の initializer の menuColors に __[]__ を指定する�
 pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Plain, menuColors: [ .purple ], topBarHeight: statusBarHeight)
 ```
 
+![.Plain](screenshots/ex_Plain.png "Plain")
+
+![.Hacka](screenshots/ex_Hacka.png "Hacka")
+
+![.Ellipse](screenshots/ex_Ellipse.png "Ellipse")
+
+![.NHK](screenshots/ex_NHK.png "NHK")
+
+
 ### .Tab, .Smart
 
 .Tab, .Smart スタイルで指定できる色は一つ以上である。
@@ -119,16 +128,24 @@ pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: 
 pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Tab, menuColors: [ .red, .orange, .yello, .green, .blue, .purple ], topBarHeight: statusBarHeight)
 ```
 
+![.Tab](screenshots/ex_Tab.png "Tab")
+
+![.Smart](screenshots/ex_NHK.png "Smart")
+
+
 ### .Web
 
 .Web スタイルも .Tab, .Smart スタイルと同様に指定できる色は一つ以上である。
-ただし、背景色は現在固定されている。
+ただし、背景色は現在固定されている。また、現実装では最初に指定した色が境界線の色になる。
 以下の例では .Web スタイルに __赤、橙、黄、緑、青、紫__ を設定している。
 メニューの数が配色した数よりも多い場合は、順に色が適用される。
 
 ```swift
 pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Web, menuColors: [ .red, .orange, .yello, .green, .blue, .purple ], topBarHeight: statusBarHeight)
 ```
+
+![.Web](screenshots/ex_Web.png "Web")
+
 
 ### .Suite
 
@@ -139,6 +156,9 @@ pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: 
 pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Suite, menuColors: [ .blue ], topBarHeight: statusBarHeight)
 ```
 
+![.Suite](screenshots/ex_Suite.png "Suite")
+
+
 ### .NetLab
 
 .NetLab スタイルで指定できる色は一つだけである。現状では、非選択時の文字色に影響する。
@@ -147,6 +167,9 @@ pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: 
 ```swift
 pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .NetLab, menuColors: [ .red ], topBarHeight: statusBarHeight)
 ```
+
+![.NetLab](screenshots/ex_NetLab.png "NetLab")
+
 
 
 ## Delegate Methods (optional)
