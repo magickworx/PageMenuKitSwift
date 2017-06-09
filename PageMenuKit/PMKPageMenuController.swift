@@ -349,7 +349,9 @@ extension PMKPageMenuController
   func prepareForMenuIndicator() {
     let x: CGFloat = 0.0
     let y: CGFloat = self.scrollView!.frame.size.height - self.indicatorHeight
-    var w: CGFloat = kMenuItemWidth
+    let w: CGFloat = menuStyle == .Tab || menuStyle == .Smart
+                   ? self.scrollView!.contentSize.width
+                   : kMenuItemWidth
     let h: CGFloat = self.indicatorHeight
 
     var color: UIColor = .clear
@@ -360,8 +362,6 @@ extension PMKPageMenuController
       switch (menuStyle) {
         case .Plain:
           color = .orange
-        case .Tab, .Smart:
-          w = self.scrollView!.contentSize.width
         case .Hacka:
           color = UIColor.hexColor(kHackaHexColor)
         case .Suite:
@@ -396,6 +396,13 @@ extension PMKPageMenuController
   func stringClassFromString(_ className: String) -> AnyClass! {
     // get namespace
     let namespace = Bundle.main.infoDictionary!["CFBundleExecutable"] as! String
+    // XXX: 順に "namespace" を変更して探索を試みる
+    if let cls: AnyClass = NSClassFromString("PageMenuKitSwift.\(className)") {
+      return cls
+    }
+    if let cls: AnyClass = NSClassFromString("PageMenuKit.\(className)") {
+      return cls
+    }
     // get 'anyClass' with classname and namespace
     let cls: AnyClass = NSClassFromString("\(namespace).\(className)")!
     // return AnyClass
@@ -437,27 +444,10 @@ extension PMKPageMenuController
       else {
         color = self.menuColor(at: i)
       }
-      let item: PMKPageMenuItem
-      switch (menuStyle) {
-        case .Plain:
-          item = PMKPageMenuItemPlain(frame: frame, title: title, color: color)
-        case .Tab:
-          item = PMKPageMenuItemTab(frame: frame, title: title, color: color)
-        case .Smart:
-          item = PMKPageMenuItemSmart(frame: frame, title: title, color: color)
-        case .Hacka:
-          item = PMKPageMenuItemHacka(frame: frame, title: title, color: color)
-        case .Web:
-          item = PMKPageMenuItemWeb(frame: frame, title: title, color: color)
-        case .Ellipse:
-          item = PMKPageMenuItemEllipse(frame: frame, title: title, color: color)
-        case .Suite:
-          item = PMKPageMenuItemSuite(frame: frame, title: title, color: color)
-        case .NetLab:
-          item = PMKPageMenuItemNetLab(frame: frame, title: title, color: color)
-        case .NHK:
-          item = PMKPageMenuItemNHK(frame: frame, title: title, color: color)
-      }
+
+      let className = menuStyle.className()
+      let classType = stringClassFromString(className) as! PMKPageMenuItem.Type
+      let item: PMKPageMenuItem = classType.init(frame: frame, title: title, color: color)
       item.tag = kMenuItemBaseTag + i
       self.scrollView?.addSubview(item)
       x += (w + itemMargin)

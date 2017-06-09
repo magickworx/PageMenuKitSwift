@@ -48,7 +48,7 @@ public class PMKPageMenuItemNHK: PMKPageMenuItem {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public override init(frame: CGRect, title: String, color: UIColor) {
+  public required init(frame: CGRect, title: String, color: UIColor) {
     super.init(frame: frame, title: title, color: color)
 
     self.style = .NHK

@@ -23,6 +23,7 @@
 
 /* Begin PBXBuildFile section */
 		B3650E861EEA566500B3D2BB /* PMKPageMenuItemNHK.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3650E851EEA566500B3D2BB /* PMKPageMenuItemNHK.swift */; };
+		B3650E891EEA798000B3D2BB /* PageMenuKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FD5BAD1EE967A000842272 /* PageMenuKit.framework */; };
 		B3FD5BB11EE967A000842272 /* PageMenuKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B3FD5BAF1EE967A000842272 /* PageMenuKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3FD5BC71EE96AC100842272 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD5BC61EE96AC100842272 /* AppDelegate.swift */; };
 		B3FD5BCE1EE96AC100842272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3FD5BCD1EE96AC100842272 /* Assets.xcassets */; };
@@ -42,6 +43,16 @@
 		B3FD5BEF1EE96DE800842272 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD5BEE1EE96DE800842272 /* RootViewController.swift */; };
 		B3FD5BF11EE96DEF00842272 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD5BF01EE96DEF00842272 /* DataViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B3650E871EEA797500B3D2BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3FD5B8B1EE966FB00842272 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B3FD5BAC1EE967A000842272;
+			remoteInfo = PageMenuKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B3650E851EEA566500B3D2BB /* PMKPageMenuItemNHK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMKPageMenuItemNHK.swift; sourceTree = "<group>"; };
@@ -81,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3650E891EEA798000B3D2BB /* PageMenuKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +195,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B3650E881EEA797500B3D2BB /* PBXTargetDependency */,
 			);
 			name = PageMenuKitDemo;
 			productName = PageMenuKitDemo;
@@ -315,6 +328,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B3650E881EEA797500B3D2BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B3FD5BAC1EE967A000842272 /* PageMenuKit */;
+			targetProxy = B3650E871EEA797500B3D2BB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B3FD5BCF1EE96AC100842272 /* LaunchScreen.storyboard */ = {

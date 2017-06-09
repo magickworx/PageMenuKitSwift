@@ -3,7 +3,7 @@
  * FILE:	PMKPageMenuItemTab.swift
  * DESCRIPTION:	PageMenuKit: PageMenuItem Class like "グノシー"
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Wed, Jun  7 2017
+ * UPDATED:	Fri, Jun  9 2017
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
@@ -48,7 +48,7 @@ public class PMKPageMenuItemTab: PMKPageMenuItem {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public override init(frame: CGRect, title: String, color: UIColor) {
+  public required init(frame: CGRect, title: String, color: UIColor) {
     super.init(frame: frame, title: title, color: color)
 
     self.style = .Tab

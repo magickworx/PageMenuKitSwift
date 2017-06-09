@@ -54,6 +54,20 @@ public enum PMKPageMenuControllerStyle: Int {
   case Suite   = 7 // NewsSuite [https://itunes.apple.com/jp/app/id1176431318]
   case NetLab  = 8 // NLab      [https://itunes.apple.com/jp/app/id949325541]
   case NHK     = 9 // NHK NEWS  [https://itunes.apple.com/jp/app/id1121104608]
+
+  func className() -> String {
+    switch self {
+      case .Plain:   return "PMKPageMenuItemPlain"
+      case .Tab:     return "PMKPageMenuItemTab"
+      case .Smart:   return "PMKPageMenuItemSmart"
+      case .Hacka:   return "PMKPageMenuItemHacka"
+      case .Web:     return "PMKPageMenuItemWeb"
+      case .Ellipse: return "PMKPageMenuItemEllipse"
+      case .Suite:   return "PMKPageMenuItemSuite"
+      case .NetLab:  return "PMKPageMenuItemNetLab"
+      case .NHK:     return "PMKPageMenuItemNHK"
+    }
+  }
 }
 
 protocol Item {
@@ -84,7 +98,7 @@ public class PMKPageMenuItem: UIView, MenuItem {
     super.init(frame: frame)
   }
 
-  public init(frame: CGRect, title: String, color: UIColor) {
+  public required init(frame: CGRect, title: String, color: UIColor) {
     super.init(frame: frame)
 
     self.backgroundColor = .clear

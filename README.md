@@ -32,7 +32,7 @@ class RootViewController: UIViewController
     let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
     /*
      * Available menu styles:
-     * .Plain, .Tab, .Smart, .Hacka, .Ellipse, .Web, .Suite and .NetLab
+     * .Plain, .Tab, .Smart, .Hacka, .Ellipse, .Web, .Suite, .NetLab and .NHK
      * See PMKPageMenuItem.swift in PageMenuKit folder.
      */
     pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Smart, topBarHeight: statusBarHeight)

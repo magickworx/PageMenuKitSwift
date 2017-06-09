@@ -3,7 +3,7 @@
  * FILE:	RootViewController.swift
  * DESCRIPTION:	PageMenuKitDemo: Application Root View Controller
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Thu, Jun  8 2017
+ * UPDATED:	Fri, Jun  9 2017
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
@@ -76,10 +76,11 @@ class RootViewController: BaseViewController
     let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
     /*
      * Available menuStyles:
-     * .Plain, .Tab, .Smart, .Hacka, .Ellipse, .Web, .Suite, .NetLab
+     * .Plain, .Tab, .Smart, .Hacka, .Ellipse, .Web, .Suite, .NetLab, .NHK
      * See PMKPageMenuItem.swift in PageMenuKit folder.
      */
     pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Smart, topBarHeight: statusBarHeight)
+//    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Plain, menuColors: [.purple], topBarHeight: statusBarHeight)
     pageMenuController?.delegate = self
     self.addChildViewController(pageMenuController!)
     self.view.addSubview(pageMenuController!.view)
