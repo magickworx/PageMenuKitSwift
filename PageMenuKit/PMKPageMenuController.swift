@@ -3,7 +3,7 @@
  * FILE:	PMKPageMenuController.swift
  * DESCRIPTION:	PageMenuKit: Paging Menu View Controller
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Fri, Jun  9 2017
+ * UPDATED:	Sat, Jun 10 2017
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
@@ -436,7 +436,12 @@ extension PMKPageMenuController
         }
       }
       else {
-        color = self.menuColor(at: i)
+        switch (menuStyle) {
+          case .Plain, .Hacka, .Ellipse, .NetLab, .NHK:
+            color = self.menuColor(at: 0)
+          default:
+            color = self.menuColor(at: i)
+        }
       }
 
       let design = PMKPageMenuItemDesign(themeColor: color)

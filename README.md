@@ -81,20 +81,72 @@ class RootViewController: UIViewController
 ![.Web](screenshots/tab_Web.png "JCnews ウェブサイト")
 
 ### .Suite
-[NewsSuite](https://itunes.apple.com/jp/app/id1176431318?mt=8)っぽいメニュー画面
+[NewsSuite](https://itunes.apple.com/jp/app/id1176431318?mt=8)っぽいメニュー画面（背景色はグラデーション）
 
 ![.Suite](screenshots/tab_Suite.png "ニュース（NewsSuite）")
 
 ### .NetLab
-[ねとらぼ](https://itunes.apple.com/jp/app/id949325541?mt=8)っぽいメニュー画面
+[ねとらぼ](https://itunes.apple.com/jp/app/id949325541?mt=8)っぽいメニュー画面（背景色は透明）
 
 ![.NetLab](screenshots/tab_NetLab.png "ねとらぼ")
 
 ### .NHK
-[NHK ニュース防災](https://itunes.apple.com/jp/app/id1121104608?mt=8)っぽいメニュー画面
+[NHK ニュース・防災](https://itunes.apple.com/jp/app/id1121104608?mt=8)っぽいメニュー画面
 
-![.NHK](screenshots/tab_NHK.png "NHK ニュース防災")
+![.NHK](screenshots/tab_NHK.png "NHK ニュース・防災")
 
+
+## Examples
+
+PMKPageMenuController の initializer の menuColors に __[]__ を指定するとデフォルトの配色になる。ここでは、各スタイルごとに色を変更する例を示す。
+
+### .Plain, .Hacka, .Ellipse, .NHK 
+
+.Plain, .Hacka, .Ellipse, .NHK の各スタイルで指定できる色は一つだけである。
+以下の例では .Plain スタイルに __紫（.purple）__ を設定している。
+
+```swift
+pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Plain, menuColors: [ .purple ], topBarHeight: statusBarHeight)
+```
+
+### .Tab, .Smart
+
+.Tab, .Smart スタイルで指定できる色は一つ以上である。
+以下の例では .Tab スタイルに __赤、橙、黄、緑、青、紫__ を設定している。
+メニューの数が配色した数よりも多い場合は、順に色が適用される。
+
+```swift
+pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Tab, menuColors: [ .red, .orange, .yello, .green, .blue, .purple ], topBarHeight: statusBarHeight)
+```
+
+### .Web
+
+.Web スタイルも .Tab, .Smart スタイルと同様に指定できる色は一つ以上である。
+ただし、背景色は現在固定されている。
+以下の例では .Web スタイルに __赤、橙、黄、緑、青、紫__ を設定している。
+メニューの数が配色した数よりも多い場合は、順に色が適用される。
+
+```swift
+pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Web, menuColors: [ .red, .orange, .yello, .green, .blue, .purple ], topBarHeight: statusBarHeight)
+```
+
+### .Suite
+
+.Suite スタイルで指定できる色は一つだけであるが、現状ではインジケータの色が変更されるだけである。。
+以下の例では .Suite スタイルに __青（.blue）__ を設定している。
+
+```swift
+pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Suite, menuColors: [ .blue ], topBarHeight: statusBarHeight)
+```
+
+### .NetLab
+
+.NetLab スタイルで指定できる色は一つだけである。現状では、非選択時の文字色に影響する。
+以下の例では .NetLab スタイルに __赤（.red）__ を設定している。
+
+```swift
+pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .NetLab, menuColors: [ .red ], topBarHeight: statusBarHeight)
+```
 
 
 ## Delegate Methods (optional)
