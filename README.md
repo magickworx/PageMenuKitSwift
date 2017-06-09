@@ -108,12 +108,19 @@ PMKPageMenuController の initializer の menuColors に __[]__ を指定する�
 ```swift
 pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Plain, menuColors: [ .purple ], topBarHeight: statusBarHeight)
 ```
+#### .Plain
 
 ![.Plain](screenshots/ex_Plain.png "Plain")
 
+#### .Hacka
+
 ![.Hacka](screenshots/ex_Hacka.png "Hacka")
 
+#### .Ellipse
+
 ![.Ellipse](screenshots/ex_Ellipse.png "Ellipse")
+
+#### .NHK
 
 ![.NHK](screenshots/ex_NHK.png "NHK")
 
@@ -128,9 +135,13 @@ pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: 
 pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Tab, menuColors: [ .red, .orange, .yello, .green, .blue, .purple ], topBarHeight: statusBarHeight)
 ```
 
+#### .Tab
+
 ![.Tab](screenshots/ex_Tab.png "Tab")
 
-![.Smart](screenshots/ex_NHK.png "Smart")
+#### .Smart
+
+![.Smart](screenshots/ex_Smart.png "Smart")
 
 
 ### .Web
