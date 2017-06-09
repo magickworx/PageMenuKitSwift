@@ -22,6 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		B3650E861EEA566500B3D2BB /* PMKPageMenuItemNHK.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3650E851EEA566500B3D2BB /* PMKPageMenuItemNHK.swift */; };
 		B3FD5BB11EE967A000842272 /* PageMenuKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B3FD5BAF1EE967A000842272 /* PageMenuKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3FD5BC71EE96AC100842272 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD5BC61EE96AC100842272 /* AppDelegate.swift */; };
 		B3FD5BCE1EE96AC100842272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3FD5BCD1EE96AC100842272 /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B3650E851EEA566500B3D2BB /* PMKPageMenuItemNHK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMKPageMenuItemNHK.swift; sourceTree = "<group>"; };
 		B3FD5BAD1EE967A000842272 /* PageMenuKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PageMenuKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3FD5BAF1EE967A000842272 /* PageMenuKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageMenuKit.h; sourceTree = "<group>"; };
 		B3FD5BB01EE967A000842272 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 		B3FD5BAE1EE967A000842272 /* PageMenuKit */ = {
 			isa = PBXGroup;
 			children = (
+				B3650E851EEA566500B3D2BB /* PMKPageMenuItemNHK.swift */,
 				B3FD5BD61EE96B1500842272 /* PMKPageMenuController.swift */,
 				B3FD5BD71EE96B1500842272 /* PMKPageMenuControllerDelegate.swift */,
 				B3FD5BD81EE96B1500842272 /* PMKPageMenuItem.swift */,
@@ -294,6 +297,7 @@
 				B3FD5BE41EE96B1500842272 /* PMKPageMenuItemEllipse.swift in Sources */,
 				B3FD5BE81EE96B1500842272 /* PMKPageMenuItemSmart.swift in Sources */,
 				B3FD5BE31EE96B1500842272 /* PMKPageMenuItem.swift in Sources */,
+				B3650E861EEA566500B3D2BB /* PMKPageMenuItemNHK.swift in Sources */,
 				B3FD5BE91EE96B1500842272 /* PMKPageMenuItemSuite.swift in Sources */,
 				B3FD5BE51EE96B1500842272 /* PMKPageMenuItemHacka.swift in Sources */,
 			);
@@ -531,6 +535,7 @@
 				B3FD5BB81EE967A000842272 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B3FD5BBB1EE967FE00842272 /* Build configuration list for PBXAggregateTarget "PageMenuKitFatBinary" */ = {
 			isa = XCConfigurationList;
@@ -539,6 +544,7 @@
 				B3FD5BBD1EE967FE00842272 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B3FD5BD31EE96AC100842272 /* Build configuration list for PBXNativeTarget "PageMenuKitDemo" */ = {
 			isa = XCConfigurationList;
@@ -547,6 +553,7 @@
 				B3FD5BD51EE96AC100842272 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

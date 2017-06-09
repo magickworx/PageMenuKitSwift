@@ -3,7 +3,7 @@
  * FILE:	PMKPageMenuItem.swift
  * DESCRIPTION:	PageMenuKit: Base MenuItem Class for PageMenuController
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Thu, Jun  8 2017
+ * UPDATED:	Fri, Jun  9 2017
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
@@ -53,6 +53,7 @@ public enum PMKPageMenuControllerStyle: Int {
   case Ellipse = 6 // JCNews    [https://itunes.apple.com/jp/app/id1024341813]
   case Suite   = 7 // NewsSuite [https://itunes.apple.com/jp/app/id1176431318]
   case NetLab  = 8 // NLab      [https://itunes.apple.com/jp/app/id949325541]
+  case NHK     = 9 // NHK NEWS  [https://itunes.apple.com/jp/app/id1121104608]
 }
 
 protocol Item {

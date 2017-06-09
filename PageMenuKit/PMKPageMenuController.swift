@@ -3,7 +3,7 @@
  * FILE:	PMKPageMenuController.swift
  * DESCRIPTION:	PageMenuKit: Paging Menu View Controller
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Thu, Jun  8 2017
+ * UPDATED:	Fri, Jun  9 2017
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
@@ -62,9 +62,10 @@ let kIndicatorHeight: CGFloat =  kSeparatorHeight
 
 let kMenuItemBaseTag: Int = 170602
 
-let  kHackaHexColor: UInt32 = 0x66cdaa
-let kJCNewsHexColor: UInt32 = 0x3fa9f5
-let kNetLabHexColor: UInt32 = 0x8e0c4e
+let   kHackaHexColor: UInt32 = 0x66cdaa
+let  kJCNewsHexColor: UInt32 = 0x3fa9f5
+let  kNetLabHexColor: UInt32 = 0x8e0c4e
+let kNHKNewsHexColor: UInt32 = 0x0387d2
 
 public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
 {
@@ -298,6 +299,11 @@ extension PMKPageMenuController
         self.separatorHeight = 0.0
         self.indicatorHeight = 4.0
         break
+      case .NHK:
+        self.itemMargin = 0.0
+        self.separatorHeight = 2.0
+        self.indicatorHeight = 0.0
+        break
     }
   }
 
@@ -317,6 +323,8 @@ extension PMKPageMenuController
           menuColor = .orange
         case .Hacka:
           menuColor = UIColor.hexColor(kHackaHexColor)
+        case .NHK:
+          menuColor = UIColor.hexColor(kNHKNewsHexColor)
         default: break
       }
       y = height - h
@@ -403,6 +411,8 @@ extension PMKPageMenuController
           item = PMKPageMenuItemSuite(frame: frame, title: title, color: color)
         case .NetLab:
           item = PMKPageMenuItemNetLab(frame: frame, title: title, color: UIColor.hexColor(kNetLabHexColor))
+        case .NHK:
+          item = PMKPageMenuItemNHK(frame: frame, title: title, color: UIColor.hexColor(kNHKNewsHexColor))
       }
       item.tag = kMenuItemBaseTag + i
       self.scrollView?.addSubview(item)
