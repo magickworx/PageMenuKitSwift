@@ -85,6 +85,15 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
   var menuItems: [PMKPageMenuItem] = []
   var pageViewController: UIPageViewController? = nil
 
+  static let standardColors: [UIColor] = [
+	UIColor.hexColor(0xff7f7f),
+	UIColor.hexColor(0xbf7fff),
+	UIColor.hexColor(0x7f7fff),
+	UIColor.hexColor(0x7fbfff),
+	UIColor.hexColor(0x7fff7f),
+	UIColor.hexColor(0xffbf7f)
+  ]
+
   // Designated Initializer
   public required init(coder aDecoder: NSCoder) {
     fatalError("NSCoding not supported")
@@ -121,15 +130,7 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
   public convenience init(controllers: [UIViewController],
                             menuStyle: PMKPageMenuControllerStyle,
                          topBarHeight: CGFloat) {
-    let menuColors: [UIColor] = [
-	UIColor.hexColor(0xff7f7f),
-	UIColor.hexColor(0xbf7fff),
-	UIColor.hexColor(0x7f7fff),
-	UIColor.hexColor(0x7fbfff),
-	UIColor.hexColor(0x7fff7f),
-	UIColor.hexColor(0xffbf7f)
-    ]
-    self.init(controllers: controllers, menuStyle:menuStyle, menuColors:menuColors, topBarHeight:topBarHeight)
+    self.init(controllers: controllers, menuStyle: menuStyle, menuColors: PMKPageMenuController.standardColors, topBarHeight: topBarHeight)
   }
 
   public override func loadView() {
@@ -192,6 +193,9 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
   // MARK: convenient method
   func menuColor(at index: Int) -> UIColor {
     let numberOfColors: Int = self.menuColors.count
+    guard numberOfColors > 0 else {
+      return PMKPageMenuController.standardColors[index % PMKPageMenuController.standardColors.count]
+    }
     return self.menuColors[index % numberOfColors]
   }
 
@@ -309,33 +313,36 @@ extension PMKPageMenuController
 
   // CUSTOM: Add the separator color for your custom menu style if needed.
   func prepareForMenuSeparator() {
-    if var menuColor: UIColor = self.menuColors.first {
-      let  width: CGFloat = self.scrollView!.contentSize.width
-      let height: CGFloat = self.scrollView!.frame.size.height
-
-      let x: CGFloat = 0.0
-      var y: CGFloat = height
-      let w: CGFloat = width
-      let h: CGFloat = self.separatorHeight
-
+    var color: UIColor = .clear
+    if let firstColor: UIColor = self.menuColors.first {
+      color = firstColor
+    }
+    else {
       switch (menuStyle) {
         case .Plain, .Web:
-          menuColor = .orange
+          color = .orange
         case .Hacka:
-          menuColor = UIColor.hexColor(kHackaHexColor)
+          color = UIColor.hexColor(kHackaHexColor)
         case .NHK:
-          menuColor = UIColor.hexColor(kNHKNewsHexColor)
-        default: break
+          color = UIColor.hexColor(kNHKNewsHexColor)
+        default:
+          color = PMKPageMenuController.standardColors.first!
       }
-      y = height - h
-
-      let layer: CALayer = CALayer()
-      layer.frame = CGRect(x: x, y: y, width: w, height: h)
-      layer.actions = [ "backgroundColor" : NSNull() ]
-      layer.backgroundColor = menuColor.cgColor
-      self.scrollView?.layer.addSublayer(layer)
-      self.menuSeparator = layer
     }
+    let  width: CGFloat = self.scrollView!.contentSize.width
+    let height: CGFloat = self.scrollView!.frame.size.height
+
+    let w: CGFloat = width
+    let h: CGFloat = self.separatorHeight
+    let x: CGFloat = 0.0
+    let y: CGFloat = height - h
+
+    let layer: CALayer = CALayer()
+    layer.frame = CGRect(x: x, y: y, width: w, height: h)
+    layer.actions = [ "backgroundColor" : NSNull() ]
+    layer.backgroundColor = color.cgColor
+    self.scrollView?.layer.addSublayer(layer)
+    self.menuSeparator = layer
   }
 
   // CUSTOM: Add the indicator color for your custom menu style if needed.
@@ -345,18 +352,23 @@ extension PMKPageMenuController
     var w: CGFloat = kMenuItemWidth
     let h: CGFloat = self.indicatorHeight
 
-    var color: UIColor? = self.menuColors.first
-    switch (menuStyle) {
-      case .Plain:
-        color = .orange
-      case .Tab, .Smart:
-        w = self.scrollView!.contentSize.width
-      case .Hacka:
-        color = UIColor.hexColor(kHackaHexColor)
-      case .Suite:
-        color = UIColor.hexColor(0x7ab7cc)
-      default:
-        break
+    var color: UIColor = .clear
+    if let firstColor: UIColor = self.menuColors.first {
+      color = firstColor
+    }
+    else {
+      switch (menuStyle) {
+        case .Plain:
+          color = .orange
+        case .Tab, .Smart:
+          w = self.scrollView!.contentSize.width
+        case .Hacka:
+          color = UIColor.hexColor(kHackaHexColor)
+        case .Suite:
+          color = UIColor.hexColor(0x7ab7cc)
+        default:
+          color = PMKPageMenuController.standardColors.first!
+      }
     }
 
     let menuIndicator: UIView
@@ -377,6 +389,19 @@ extension PMKPageMenuController
     }
   }
 
+  /*
+   * swift3 - how to create instance of a class from a string in swift 3
+   * https://stackoverflow.com/questions/40373030/how-to-create-instance-of-a-class-from-a-string-in-swift-3
+   */
+  func stringClassFromString(_ className: String) -> AnyClass! {
+    // get namespace
+    let namespace = Bundle.main.infoDictionary!["CFBundleExecutable"] as! String
+    // get 'anyClass' with classname and namespace
+    let cls: AnyClass = NSClassFromString("\(namespace).\(className)")!
+    // return AnyClass
+    return cls
+  }
+
   // CUSTOM: Add the code to create instance of your custom menu style.
   func prepareForMenuItems() {
     self.menuItems = []
@@ -392,27 +417,46 @@ extension PMKPageMenuController
     for i in 0 ..< count {
       let frame: CGRect = CGRect(x: x, y: y, width: w, height: h)
       let title: String = self.titles[i]
-      let color: UIColor = self.menuColor(at: i)
+      var color: UIColor = .clear
+      if self.menuColors.count == 0 { // 色指定がない場合はデフォルト色を使用
+        switch (menuStyle) {
+          case .Plain:
+            color = .orange
+          case .Hacka:
+            color = UIColor.hexColor(kHackaHexColor)
+          case .Ellipse:
+            color = UIColor.hexColor(kJCNewsHexColor)
+          case .NetLab:
+            color = UIColor.hexColor(kNetLabHexColor)
+          case .NHK:
+            color = UIColor.hexColor(kNHKNewsHexColor)
+          default:
+            color = self.menuColor(at: i)
+        }
+      }
+      else {
+        color = self.menuColor(at: i)
+      }
       let item: PMKPageMenuItem
       switch (menuStyle) {
         case .Plain:
-          item = PMKPageMenuItemPlain(frame: frame, title: title, color: .orange)
+          item = PMKPageMenuItemPlain(frame: frame, title: title, color: color)
         case .Tab:
           item = PMKPageMenuItemTab(frame: frame, title: title, color: color)
         case .Smart:
           item = PMKPageMenuItemSmart(frame: frame, title: title, color: color)
         case .Hacka:
-          item = PMKPageMenuItemHacka(frame: frame, title: title, color: UIColor.hexColor(kHackaHexColor))
+          item = PMKPageMenuItemHacka(frame: frame, title: title, color: color)
         case .Web:
           item = PMKPageMenuItemWeb(frame: frame, title: title, color: color)
         case .Ellipse:
-          item = PMKPageMenuItemEllipse(frame: frame, title: title, color: UIColor.hexColor(kJCNewsHexColor))
+          item = PMKPageMenuItemEllipse(frame: frame, title: title, color: color)
         case .Suite:
           item = PMKPageMenuItemSuite(frame: frame, title: title, color: color)
         case .NetLab:
-          item = PMKPageMenuItemNetLab(frame: frame, title: title, color: UIColor.hexColor(kNetLabHexColor))
+          item = PMKPageMenuItemNetLab(frame: frame, title: title, color: color)
         case .NHK:
-          item = PMKPageMenuItemNHK(frame: frame, title: title, color: UIColor.hexColor(kNHKNewsHexColor))
+          item = PMKPageMenuItemNHK(frame: frame, title: title, color: color)
       }
       item.tag = kMenuItemBaseTag + i
       self.scrollView?.addSubview(item)
