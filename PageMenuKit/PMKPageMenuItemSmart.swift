@@ -48,13 +48,13 @@ public class PMKPageMenuItemSmart: PMKPageMenuItem {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public required init(frame: CGRect, title: String, color: UIColor) {
-    super.init(frame: frame, title: title, color: color)
+  public required init(frame: CGRect, title: String, design: PMKPageMenuItemDesign) {
+    super.init(frame: frame, title: title, design: design)
 
     self.style = .Smart
 
     self.titleColor = .white
-    self.label?.backgroundColor = color
+    self.label?.backgroundColor = design.themeColor
   }
 
   override func render(active: Bool) {

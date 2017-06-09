@@ -50,12 +50,12 @@ public class PMKPageMenuItemHacka: PMKPageMenuItem {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public required init(frame: CGRect, title: String, color: UIColor) {
-    super.init(frame: frame, title: title, color: color)
+  public required init(frame: CGRect, title: String, design: PMKPageMenuItemDesign) {
+    super.init(frame: frame, title: title, design: design)
 
-    self.titleColor = color
-    self.borderColor = color
     self.style = .Hacka
+    self.titleColor = design.themeColor
+    self.borderColor = design.themeColor
 
     self.addBorders(of: self.label!)
   }
@@ -63,7 +63,7 @@ public class PMKPageMenuItemHacka: PMKPageMenuItem {
   override func render(active: Bool) {
     if (active) {
       self.label?.textColor = .white
-      self.label?.backgroundColor = self.color
+      self.label?.backgroundColor = self.design?.themeColor
       var frame: CGRect = self.frame
       frame.origin.y = 0.0
       frame.size.height = kMenuItemHeight
@@ -71,7 +71,7 @@ public class PMKPageMenuItemHacka: PMKPageMenuItem {
       self.borderLayer?.isHidden = true
     }
     else {
-      self.label?.textColor = self.color
+      self.label?.textColor = self.design?.themeColor
       self.label?.backgroundColor = .clear
       self.borderLayer?.isHidden = false
       var frame: CGRect = self.frame

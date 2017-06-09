@@ -48,23 +48,23 @@ public class PMKPageMenuItemEllipse: PMKPageMenuItem {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public required init(frame: CGRect, title: String, color: UIColor) {
-    super.init(frame: frame, title: title, color: color)
+  public required init(frame: CGRect, title: String, design: PMKPageMenuItemDesign) {
+    super.init(frame: frame, title: title, design: design)
 
     self.style = .Ellipse
 
-    self.backgroundColor = color // ベースの背景色は固定
+    self.backgroundColor = design.themeColor // ベースの背景色は固定
   }
 
   override func render(active: Bool) {
     if (active) {
-      self.label?.textColor = self.color
+      self.label?.textColor = self.design?.themeColor
       self.label?.backgroundColor = .white
       self.roundingCorners(of: self.label!)
     }
     else {
       self.label?.textColor = .white
-      self.label?.backgroundColor = self.color
+      self.label?.backgroundColor = self.design?.themeColor
       self.label?.layer.mask = nil
     }
   }

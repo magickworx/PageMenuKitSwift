@@ -78,8 +78,9 @@ class RootViewController: BaseViewController
      * Available menuStyles:
      * .Plain, .Tab, .Smart, .Hacka, .Ellipse, .Web, .Suite, .NetLab, .NHK
      * See PMKPageMenuItem.swift in PageMenuKit folder.
+     * "menuColors: []" means that we will use the default colors.
      */
-    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Smart, topBarHeight: statusBarHeight)
+    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Smart, menuColors: [], topBarHeight: statusBarHeight)
 //    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Plain, menuColors: [.purple], topBarHeight: statusBarHeight)
     pageMenuController?.delegate = self
     self.addChildViewController(pageMenuController!)

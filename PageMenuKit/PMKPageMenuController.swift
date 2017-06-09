@@ -101,7 +101,7 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
 
   public init(controllers: [UIViewController],
                 menuStyle: PMKPageMenuControllerStyle,
-               menuColors: [UIColor],
+               menuColors: [UIColor] = PMKPageMenuController.standardColors,
              topBarHeight: CGFloat) {
     super.init(nibName: nil, bundle: nil)
 
@@ -125,12 +125,6 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
     self.titles = titles
 
     self.prepareForMenuStyle(menuStyle)
-  }
-
-  public convenience init(controllers: [UIViewController],
-                            menuStyle: PMKPageMenuControllerStyle,
-                         topBarHeight: CGFloat) {
-    self.init(controllers: controllers, menuStyle: menuStyle, menuColors: PMKPageMenuController.standardColors, topBarHeight: topBarHeight)
   }
 
   public override func loadView() {
@@ -445,9 +439,28 @@ extension PMKPageMenuController
         color = self.menuColor(at: i)
       }
 
+      let design = PMKPageMenuItemDesign(themeColor: color)
+      switch (menuStyle) { // set default design
+        case .Web:
+          design.inactive.isEnabled = true
+          design.inactive.backgroundColor = UIColor.hexColor(0x332f2e)
+        case .Suite:
+          design.titleColor = .white
+          design.gradientColors = [
+            UIColor.hexColor(0x445a66).cgColor,
+            UIColor.hexColor(0x677983).cgColor
+          ]
+          design.inactive.isEnabled = true
+          design.inactive.titleColor = .lightGray
+        case .NetLab:
+          design.backgroundColor = UIColor.hexColor(0xcb8fad)
+        default:
+          break
+      }
+
       let className = menuStyle.className()
       let classType = stringClassFromString(className) as! PMKPageMenuItem.Type
-      let item: PMKPageMenuItem = classType.init(frame: frame, title: title, color: color)
+      let item: PMKPageMenuItem = classType.init(frame: frame, title: title, design: design)
       item.tag = kMenuItemBaseTag + i
       self.scrollView?.addSubview(item)
       x += (w + itemMargin)

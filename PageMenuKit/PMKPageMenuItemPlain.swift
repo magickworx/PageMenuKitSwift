@@ -48,17 +48,17 @@ public class PMKPageMenuItemPlain: PMKPageMenuItem {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public required init(frame: CGRect, title: String, color: UIColor) {
-    super.init(frame: frame, title: title, color: color)
+  public required init(frame: CGRect, title: String, design: PMKPageMenuItemDesign) {
+    super.init(frame: frame, title: title, design: design)
 
     self.style = .Plain
 
-    self.titleColor = color
+    self.titleColor = design.titleColor
   }
 
   override func render(active: Bool) {
     if (active) {
-      self.label?.textColor = self.color
+      self.label?.textColor = self.design?.titleColor
     }
     else {
       self.label?.textColor = .darkGray

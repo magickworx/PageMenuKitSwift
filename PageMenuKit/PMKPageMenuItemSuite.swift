@@ -48,8 +48,8 @@ public class PMKPageMenuItemSuite: PMKPageMenuItem {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public required init(frame: CGRect, title: String, color: UIColor) {
-    super.init(frame: frame, title: title, color: color)
+  public required init(frame: CGRect, title: String, design: PMKPageMenuItemDesign) {
+    super.init(frame: frame, title: title, design: design)
 
     self.style = .Suite
 
@@ -58,17 +58,33 @@ public class PMKPageMenuItemSuite: PMKPageMenuItem {
 
   override func render(active: Bool) {
     if (active) {
-      self.label?.textColor = .white
+      if let titleColor = self.design?.titleColor {
+        self.label?.textColor = titleColor
+      }
+      else {
+        self.label?.textColor = .white
+      }
     }
     else {
-      self.label?.textColor = .lightGray
+      if let design = self.design, design.inactive.isEnabled {
+        self.label?.textColor = design.inactive.titleColor
+      }
+      else {
+        self.label?.textColor = .lightGray
+      }
     }
   }
 
   func gradientBackground(of view: UIView) {
-    let    topColor: UIColor = UIColor.hexColor(0x445a66)
-    let bottomColor: UIColor = UIColor.hexColor(0x677983)
-    let gradientColors: [CGColor] = [ topColor.cgColor, bottomColor.cgColor ]
+    var gradientColors: [CGColor]
+    if let gradientColorsInDesign: [CGColor] = self.design?.gradientColors {
+      gradientColors = gradientColorsInDesign
+    }
+    else {
+      let    topColor: UIColor = UIColor.hexColor(0x445a66)
+      let bottomColor: UIColor = UIColor.hexColor(0x677983)
+      gradientColors = [ topColor.cgColor, bottomColor.cgColor ]
+    }
     let gradientLayer: CAGradientLayer = CAGradientLayer()
     gradientLayer.colors = gradientColors
     gradientLayer.frame = view.bounds

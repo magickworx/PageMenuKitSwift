@@ -48,8 +48,8 @@ public class PMKPageMenuItemNHK: PMKPageMenuItem {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public required init(frame: CGRect, title: String, color: UIColor) {
-    super.init(frame: frame, title: title, color: color)
+  public required init(frame: CGRect, title: String, design: PMKPageMenuItemDesign) {
+    super.init(frame: frame, title: title, design: design)
 
     self.style = .NHK
   }
@@ -57,10 +57,10 @@ public class PMKPageMenuItemNHK: PMKPageMenuItem {
   override func render(active: Bool) {
     if (active) {
       self.label?.textColor = .white
-      self.label?.backgroundColor = self.color
+      self.label?.backgroundColor = self.design?.themeColor
     }
     else {
-      self.label?.textColor = self.color
+      self.label?.textColor = self.design?.themeColor
       self.label?.backgroundColor = .clear
     }
   }

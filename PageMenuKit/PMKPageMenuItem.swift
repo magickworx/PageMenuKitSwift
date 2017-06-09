@@ -70,6 +70,33 @@ public enum PMKPageMenuControllerStyle: Int {
   }
 }
 
+
+protocol Design {
+  var themeColor: UIColor { get set }
+  var titleColor: UIColor { get set }
+  var backgroundColor: UIColor { get set }
+}
+
+public class PMKPageMenuItemDesign: Design {
+  var themeColor: UIColor = .clear // 通常は titleColor と同じはず
+  var titleColor: UIColor = .black
+  var backgroundColor: UIColor = .clear
+  var gradientColors: [CGColor] = []
+
+  struct inactiveStruct { // inactive を有効にする場合は isEnabled = true にする
+    var isEnabled: Bool = false
+    var titleColor: UIColor = .lightGray
+    var backgroundColor: UIColor = .clear
+  }
+  var inactive = PMKPageMenuItemDesign.inactiveStruct()
+
+  public init(themeColor: UIColor) {
+    self.themeColor = themeColor
+    self.titleColor = themeColor
+  }
+}
+
+
 protocol Item {
   var title: String { get set }
   var isEnabled: Bool { get set }
@@ -86,6 +113,7 @@ public class PMKPageMenuItem: UIView, MenuItem {
   let kBorderLayerKey: String = "kBorderLayerKey"
 
   public internal(set) var color: UIColor = .clear
+  public internal(set) var design: PMKPageMenuItemDesign? = nil
   public internal(set) var style: PMKPageMenuControllerStyle = .Plain
 
   var label: UILabel? = nil
@@ -98,7 +126,7 @@ public class PMKPageMenuItem: UIView, MenuItem {
     super.init(frame: frame)
   }
 
-  public required init(frame: CGRect, title: String, color: UIColor) {
+  public required init(frame: CGRect, title: String, design: PMKPageMenuItemDesign) {
     super.init(frame: frame)
 
     self.backgroundColor = .clear
@@ -114,7 +142,8 @@ public class PMKPageMenuItem: UIView, MenuItem {
     self.label = label
 
     self.title = title
-    self.color = color
+    self.color = design.themeColor
+    self.design = design
   }
 
 
