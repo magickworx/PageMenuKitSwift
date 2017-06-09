@@ -68,12 +68,12 @@ class RootViewController: UIViewController
 
 ![.Hacka](screenshots/tab_Hacka.png "ハッカドール")
 
-### .Web
+### .Ellipse
 [JCnews](https://itunes.apple.com/jp/app/id1024341813?mt=8)っぽいメニュー画面
 
 ![.Ellipse](screenshots/tab_Ellipse.png "JCnews iOS App")
 
-### .Ellipse
+### .Web
 [JCnews のウェブサイト](https://jcnews.tokyo/)っぽいメニュー画面
 
 ![.Web](screenshots/tab_Web.png "JCnews ウェブサイト")
