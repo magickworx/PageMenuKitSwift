@@ -3,7 +3,7 @@
  * FILE:	PMKPageMenuItem.swift
  * DESCRIPTION:	PageMenuKit: Base MenuItem Class for PageMenuController
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Fri, Jun  9 2017
+ * UPDATED:	Mon, Nov 13 2017
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
@@ -55,6 +55,9 @@ public enum PMKPageMenuControllerStyle: Int {
   case NetLab  = 8 // NLab      [https://itunes.apple.com/jp/app/id949325541]
   case NHK     = 9 // NHK NEWS  [https://itunes.apple.com/jp/app/id1121104608]
 
+  /// メニュー画面のスタイル毎のクラス名を返す
+  ///
+  /// - Returns: クラス名
   func className() -> String {
     switch self {
       case .Plain:   return "PMKPageMenuItemPlain"
@@ -107,6 +110,13 @@ protocol MenuItem: Item {
   var titleColor: UIColor { get set }
   var borderColor: UIColor { get set } // メニュー枠の色
   var isSelected: Bool { get set }
+
+  /// メニュー画面を装飾
+  ///
+  /// - Rarameters:
+  ///   - active: メニュー選択時 = true, 非選択時 = false
+  /// - Returns: なし
+  func render(active: Bool)
 }
 
 public class PMKPageMenuItem: UIView, MenuItem {
@@ -180,14 +190,9 @@ public class PMKPageMenuItem: UIView, MenuItem {
   }
 
   public var badgeValue: String? = nil // XXX: Override Point
-}
 
-// MARK: - Private Methods
-extension PMKPageMenuItem {
-  public var borderLayer: CAShapeLayer? {
-    get {
-      return self.label?.layer.value(forKey: kBorderLayerKey) as? CAShapeLayer
-    }
+  // MARK: - Overriden Functions
+  func render(active: Bool) {
   }
 
   // 左上と右上の角を丸める
@@ -198,6 +203,15 @@ extension PMKPageMenuItem {
       maskLayer.frame  = label.bounds
       maskLayer.path   = maskPath.cgPath
       label.layer.mask = maskLayer
+    }
+  }
+}
+
+// MARK: - Private Methods
+extension PMKPageMenuItem {
+  public var borderLayer: CAShapeLayer? {
+    get {
+      return self.label?.layer.value(forKey: kBorderLayerKey) as? CAShapeLayer
     }
   }
 
@@ -227,11 +241,5 @@ extension PMKPageMenuItem {
       label.layer.addSublayer(shapeLayer)
       label.layer.setValue(shapeLayer, forKey:kBorderLayerKey)
     }
-  }
-}
-
-// MARK: - Override Points
-extension PMKPageMenuItem {
-  func render(active: Bool) {
   }
 }

@@ -3,7 +3,7 @@
  * FILE:	BaseViewController.swift
  * DESCRIPTION:	PageMenuKitDemo: Application Base View Controller
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Thu, Jun  8 2017
+ * UPDATED:	Wed, Nov 29 2017
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
@@ -58,22 +58,10 @@ class BaseViewController: UIViewController
 
     self.edgesForExtendedLayout = []
     self.extendedLayoutIncludesOpaqueBars = true
-    self.automaticallyAdjustsScrollViewInsets = false
 
     self.view.backgroundColor = .white
     self.view.autoresizesSubviews = true
     self.view.autoresizingMask	= [ .flexibleWidth, .flexibleHeight ]
-
-    var frame: CGRect = self.view.frame
-    let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
-    frame.origin.y    += statusBarHeight
-    frame.size.height -= statusBarHeight
-
-    if let navBarHeight: CGFloat = self.navigationController?.navigationBar.bounds.size.height {
-      frame.origin.y    += navBarHeight
-      frame.size.height -= navBarHeight
-    }
-    self.view.frame = frame
   }
 
   func setup() {

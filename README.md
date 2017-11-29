@@ -51,47 +51,47 @@ class RootViewController: UIViewController
 ## Available Menu Styles
 
 ### .Plain
-[ニュースパス](https://itunes.apple.com/jp/app/id1106788059?mt=8)っぽいメニュー画面
+[ニュースパス](https://itunes.apple.com/jp/app/id1106788059?mt=8) っぽいメニュー画面
 
 ![.Plain](screenshots/tab_Plain.png "ニュースパス")
 
 ### .Tab
-[グノシー](https://itunes.apple.com/jp/app/id590384791?mt=8)っぽいメニュー画面
+[グノシー](https://itunes.apple.com/jp/app/id590384791?mt=8) っぽいメニュー画面
 
 ![.Tab](screenshots/tab_Tab.png "グノシー")
 
 ### .Smart
-[SmartNews](https://itunes.apple.com/jp/app/id579581125?mt=8)っぽいメニュー画面
+[SmartNews](https://itunes.apple.com/jp/app/id579581125?mt=8) っぽいメニュー画面
 
 ![.Smart](screenshots/tab_Smart.png "SmartNews")
 
 ### .Hacka
-[ハッカドール](https://itunes.apple.com/jp/app/id888231424?mt=8)っぽいメニュー画面
+[ハッカドール](https://itunes.apple.com/jp/app/id888231424?mt=8) っぽいメニュー画面
 
 ![.Hacka](screenshots/tab_Hacka.png "ハッカドール")
 
 ### .Ellipse
-[JCnews](https://itunes.apple.com/jp/app/id1024341813?mt=8)っぽいメニュー画面
+[JCnews](https://itunes.apple.com/jp/app/id1024341813?mt=8) っぽいメニュー画面
 
 ![.Ellipse](screenshots/tab_Ellipse.png "JCnews iOS App")
 
 ### .Web
-[JCnews のウェブサイト](https://jcnews.tokyo/)っぽいメニュー画面
+[JCnews のウェブサイト](https://jcnews.tokyo/) っぽいメニュー画面
 
 ![.Web](screenshots/tab_Web.png "JCnews ウェブサイト")
 
 ### .Suite
-[NewsSuite](https://itunes.apple.com/jp/app/id1176431318?mt=8)っぽいメニュー画面（背景色はグラデーション）
+[NewsSuite](https://itunes.apple.com/jp/app/id1176431318?mt=8) っぽいメニュー画面（背景色はグラデーション）
 
 ![.Suite](screenshots/tab_Suite.png "ニュース（NewsSuite）")
 
 ### .NetLab
-[ねとらぼ](https://itunes.apple.com/jp/app/id949325541?mt=8)っぽいメニュー画面（背景色は透明）
+[ねとらぼ](https://itunes.apple.com/jp/app/id949325541?mt=8) っぽいメニュー画面（背景色は透明）
 
 ![.NetLab](screenshots/tab_NetLab.png "ねとらぼ")
 
 ### .NHK
-[NHK ニュース・防災](https://itunes.apple.com/jp/app/id1121104608?mt=8)っぽいメニュー画面
+[NHK ニュース・防災](https://itunes.apple.com/jp/app/id1121104608?mt=8) っぽいメニュー画面
 
 ![.NHK](screenshots/tab_NHK.png "NHK ニュース・防災")
 
@@ -147,7 +147,9 @@ pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: 
 ### .Web
 
 .Web スタイルも .Tab, .Smart スタイルと同様に指定できる色は一つ以上である。
-ただし、背景色は現在固定されている。また、現実装では最初に指定した色が境界線の色になる。
+ただし、背景色は現在固定されている。
+また、現実装では最初に指定した色が境界線の色になる。
+
 以下の例では .Web スタイルに __赤、橙、黄、緑、青、紫__ を設定している。
 メニューの数が配色した数よりも多い場合は、順に色が適用される。
 
@@ -160,7 +162,8 @@ pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: 
 
 ### .Suite
 
-.Suite スタイルで指定できる色は一つだけであるが、現状ではインジケータの色が変更されるだけである。。
+.Suite スタイルで指定できる色は一つだけであるが、
+現状ではインジケータの色が変更されるだけである。
 以下の例では .Suite スタイルに __青（.blue）__ を設定している。
 
 ```swift
@@ -172,7 +175,8 @@ pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: 
 
 ### .NetLab
 
-.NetLab スタイルで指定できる色は一つだけである。現状では、非選択時の文字色に影響する。
+.NetLab スタイルで指定できる色は一つだけである。
+現状では、非選択時の文字色に影響する。
 以下の例では .NetLab スタイルに __赤（.red）__ を設定している。
 
 ```swift
@@ -180,7 +184,6 @@ pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: 
 ```
 
 ![.NetLab](screenshots/ex_NetLab.png "NetLab")
-
 
 
 ## Delegate Methods (optional)
@@ -215,9 +218,9 @@ Qiita の[ニュース系アプリのユーザインタフェース PageMenuKit 
 
 ## Requirements
 
- - Swift3
- - iOS 10.3 or later
- - Xcode 8.3 or later
+ - Swift 4
+ - iOS 11.0 or later
+ - Xcode 9.0 or later
 
 ## ToDo
 

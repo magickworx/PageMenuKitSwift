@@ -3,7 +3,7 @@
  * FILE:	PMKPageMenuController.swift
  * DESCRIPTION:	PageMenuKit: Paging Menu View Controller
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Sat, Jun 10 2017
+ * UPDATED:	Mon, Nov 13 2017
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
@@ -85,7 +85,7 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
   var menuItems: [PMKPageMenuItem] = []
   var pageViewController: UIPageViewController? = nil
 
-  static let standardColors: [UIColor] = [
+  public static let standardColors: [UIColor] = [
 	UIColor.hexColor(0xff7f7f),
 	UIColor.hexColor(0xbf7fff),
 	UIColor.hexColor(0x7f7fff),
@@ -115,7 +115,7 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
     var titles: [String] = []
     for (index, viewController) in controllers.enumerated() {
       if let title = viewController.value(forKey: "title") as? String,
-         title.characters.count > 0 {
+         title.count > 0 {
         titles.append(title)
       }
       else {
@@ -372,7 +372,7 @@ extension PMKPageMenuController
     self.menuIndicator = menuIndicator
   }
 
-  func handleSingleTap(_ gesture: UITapGestureRecognizer) {
+  @objc func handleSingleTap(_ gesture: UITapGestureRecognizer) {
     if var index: Int = gesture.view?.tag {
       index -= kMenuItemBaseTag
       let  viewController: UIViewController = self.childControllers[index]
