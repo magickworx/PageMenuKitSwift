@@ -32,12 +32,12 @@ class RootViewController: UIViewController
     let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
     /*
      * Available menu styles:
-     * .Plain, .Tab, .Smart, .Hacka, .Ellipse, .Web, .Suite, .NetLab and .NHK
+     * .plain, .tab, .smart, .hacka, .ellipse, .web, .suite, .netlab and .nhk
      * See PMKPageMenuItem.swift in PageMenuKit folder.
      *
      * menuColors: [] means that we will use the default colors
      */
-    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Smart, menuColors: [], topBarHeight: statusBarHeight)
+    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .smart, menuColors: [], topBarHeight: statusBarHeight)
     self.addChildViewController(pageMenuController!)
     self.view.addSubview(pageMenuController!.view)
     pageMenuController?.didMove(toParentViewController: self)
@@ -50,140 +50,140 @@ class RootViewController: UIViewController
 
 ## Available Menu Styles
 
-### .Plain
+### .plain
 [ニュースパス](https://itunes.apple.com/jp/app/id1106788059?mt=8) っぽいメニュー画面
 
-![.Plain](screenshots/tab_Plain.png "ニュースパス")
+![.plain](screenshots/tab_Plain.png "ニュースパス")
 
-### .Tab
+### .tab
 [グノシー](https://itunes.apple.com/jp/app/id590384791?mt=8) っぽいメニュー画面
 
-![.Tab](screenshots/tab_Tab.png "グノシー")
+![.tab](screenshots/tab_Tab.png "グノシー")
 
-### .Smart
+### .smart
 [SmartNews](https://itunes.apple.com/jp/app/id579581125?mt=8) っぽいメニュー画面
 
-![.Smart](screenshots/tab_Smart.png "SmartNews")
+![.smart](screenshots/tab_Smart.png "SmartNews")
 
-### .Hacka
+### .hacka
 [ハッカドール](https://itunes.apple.com/jp/app/id888231424?mt=8) っぽいメニュー画面
 
-![.Hacka](screenshots/tab_Hacka.png "ハッカドール")
+![.hacka](screenshots/tab_Hacka.png "ハッカドール")
 
-### .Ellipse
+### .ellipse
 [JCnews](https://itunes.apple.com/jp/app/id1024341813?mt=8) っぽいメニュー画面
 
-![.Ellipse](screenshots/tab_Ellipse.png "JCnews iOS App")
+![.ellipse](screenshots/tab_Ellipse.png "JCnews iOS App")
 
-### .Web
+### .web
 [JCnews のウェブサイト](https://jcnews.tokyo/) っぽいメニュー画面
 
-![.Web](screenshots/tab_Web.png "JCnews ウェブサイト")
+![.web](screenshots/tab_Web.png "JCnews ウェブサイト")
 
-### .Suite
+### .suite
 [NewsSuite](https://itunes.apple.com/jp/app/id1176431318?mt=8) っぽいメニュー画面（背景色はグラデーション）
 
-![.Suite](screenshots/tab_Suite.png "ニュース（NewsSuite）")
+![.suite](screenshots/tab_Suite.png "ニュース（NewsSuite）")
 
-### .NetLab
+### .netlab
 [ねとらぼ](https://itunes.apple.com/jp/app/id949325541?mt=8) っぽいメニュー画面（背景色は透明）
 
-![.NetLab](screenshots/tab_NetLab.png "ねとらぼ")
+![.netlab](screenshots/tab_NetLab.png "ねとらぼ")
 
-### .NHK
+### .nhk
 [NHK ニュース・防災](https://itunes.apple.com/jp/app/id1121104608?mt=8) っぽいメニュー画面
 
-![.NHK](screenshots/tab_NHK.png "NHK ニュース・防災")
+![.nhk](screenshots/tab_NHK.png "NHK ニュース・防災")
 
 
 ## Examples
 
 PMKPageMenuController の initializer の menuColors に __[]__ を指定するとデフォルトの配色になる。ここでは、各スタイルごとに色を変更する例を示す。
 
-### .Plain, .Hacka, .Ellipse, .NHK 
+### .plain, .hacka, .ellipse, .nhk 
 
-.Plain, .Hacka, .Ellipse, .NHK の各スタイルで指定できる色は一つだけである。
-以下の例では .Plain スタイルに __紫（.purple）__ を設定している。
+.plain, .hacka, .ellipse, .nhk の各スタイルで指定できる色は一つだけである。
+以下の例では .plain スタイルに __紫（.purple）__ を設定している。
 
 ```swift
-pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Plain, menuColors: [ .purple ], topBarHeight: statusBarHeight)
+pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .plain, menuColors: [ .purple ], topBarHeight: statusBarHeight)
 ```
-#### .Plain
+#### .plain
 
-![.Plain](screenshots/ex_Plain.png "Plain")
+![.plain](screenshots/ex_Plain.png "plain")
 
-#### .Hacka
+#### .hacka
 
-![.Hacka](screenshots/ex_Hacka.png "Hacka")
+![.hacka](screenshots/ex_Hacka.png "hacka")
 
-#### .Ellipse
+#### .ellipse
 
-![.Ellipse](screenshots/ex_Ellipse.png "Ellipse")
+![.ellipse](screenshots/ex_Ellipse.png "ellipse")
 
-#### .NHK
+#### .nhk
 
-![.NHK](screenshots/ex_NHK.png "NHK")
+![.nhk](screenshots/ex_NHK.png "nhk")
 
 
-### .Tab, .Smart
+### .tab, .smart
 
-.Tab, .Smart スタイルで指定できる色は一つ以上である。
-以下の例では .Tab スタイルに __赤、橙、黄、緑、青、紫__ を設定している。
+.tab, .smart スタイルで指定できる色は一つ以上である。
+以下の例では .tab スタイルに __赤、橙、黄、緑、青、紫__ を設定している。
 メニューの数が配色した数よりも多い場合は、順に色が適用される。
 
 ```swift
-pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Tab, menuColors: [ .red, .orange, .yello, .green, .blue, .purple ], topBarHeight: statusBarHeight)
+pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .tab, menuColors: [ .red, .orange, .yello, .green, .blue, .purple ], topBarHeight: statusBarHeight)
 ```
 
-#### .Tab
+#### .tab
 
-![.Tab](screenshots/ex_Tab.png "Tab")
+![.tab](screenshots/ex_Tab.png "tab")
 
-#### .Smart
+#### .smart
 
-![.Smart](screenshots/ex_Smart.png "Smart")
+![.smart](screenshots/ex_Smart.png "smart")
 
 
-### .Web
+### .web
 
-.Web スタイルも .Tab, .Smart スタイルと同様に指定できる色は一つ以上である。
+.web スタイルも .tab, .smart スタイルと同様に指定できる色は一つ以上である。
 ただし、背景色は現在固定されている。
 また、現実装では最初に指定した色が境界線の色になる。
 
-以下の例では .Web スタイルに __赤、橙、黄、緑、青、紫__ を設定している。
+以下の例では .web スタイルに __赤、橙、黄、緑、青、紫__ を設定している。
 メニューの数が配色した数よりも多い場合は、順に色が適用される。
 
 ```swift
-pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Web, menuColors: [ .red, .orange, .yello, .green, .blue, .purple ], topBarHeight: statusBarHeight)
+pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .web, menuColors: [ .red, .orange, .yello, .green, .blue, .purple ], topBarHeight: statusBarHeight)
 ```
 
-![.Web](screenshots/ex_Web.png "Web")
+![.web](screenshots/ex_Web.png "web")
 
 
-### .Suite
+### .suite
 
-.Suite スタイルで指定できる色は一つだけであるが、
+.suite スタイルで指定できる色は一つだけであるが、
 現状ではインジケータの色が変更されるだけである。
-以下の例では .Suite スタイルに __青（.blue）__ を設定している。
+以下の例では .suite スタイルに __青（.blue）__ を設定している。
 
 ```swift
-pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Suite, menuColors: [ .blue ], topBarHeight: statusBarHeight)
+pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .suite, menuColors: [ .blue ], topBarHeight: statusBarHeight)
 ```
 
-![.Suite](screenshots/ex_Suite.png "Suite")
+![.suite](screenshots/ex_Suite.png "suite")
 
 
-### .NetLab
+### .netlab
 
-.NetLab スタイルで指定できる色は一つだけである。
+.netlab スタイルで指定できる色は一つだけである。
 現状では、非選択時の文字色に影響する。
-以下の例では .NetLab スタイルに __赤（.red）__ を設定している。
+以下の例では .netlab スタイルに __赤（.red）__ を設定している。
 
 ```swift
-pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .NetLab, menuColors: [ .red ], topBarHeight: statusBarHeight)
+pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .netlab, menuColors: [ .red ], topBarHeight: statusBarHeight)
 ```
 
-![.NetLab](screenshots/ex_NetLab.png "NetLab")
+![.netlab](screenshots/ex_NetLab.png "netlab")
 
 
 ## Delegate Methods (optional)
@@ -195,7 +195,7 @@ pageMenuController?.delegate = self
 ```
 
 上記のような記述を追加して、必要に応じて以下のメソッドを実装してね。
-現時点では、 **.Hacka** スタイルのバッジ表示の際に利用しているだけ。
+現時点では、 **.hacka** スタイルのバッジ表示の際に利用しているだけ。
 
 ```PMKPageMenuControllerDelegte.swift
 public protocol PMKPageMenuControllerDelegate: class
@@ -218,17 +218,17 @@ Qiita の[ニュース系アプリのユーザインタフェース PageMenuKit 
 
 ## Requirements
 
- - Swift 4
- - iOS 11.0 or later
- - Xcode 9.0 or later
+ - Swift 4.2
+ - iOS 12.1 or later
+ - Xcode 10.1 or later
 
 ## ToDo
 
- - .Suite と .Web と .NetLab スタイルのカスタマイズ方法
+ - .suite と .web と .netlab スタイルのカスタマイズ方法
 
 ## License Agreement
 
-Copyright (c) 2017, Kouichi ABE (WALL) All rights reserved.
+Copyright (c) 2017-2018, Kouichi ABE (WALL) All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:

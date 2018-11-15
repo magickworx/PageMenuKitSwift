@@ -3,14 +3,14 @@
  * FILE:	RootViewController.swift
  * DESCRIPTION:	PageMenuKitDemo: Application Root View Controller
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Fri, Jun  9 2017
+ * UPDATED:	Thu, Nov 15 2018
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
- * COPYRIGHT:	(c) 2017 阿部康一／Kouichi ABE (WALL), All rights reserved.
+ * COPYRIGHT:	(c) 2017-2018 阿部康一／Kouichi ABE (WALL), All rights reserved.
  * LICENSE:
  *
- *  Copyright (c) 2017 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
+ *  Copyright (c) 2017-2018 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -76,16 +76,16 @@ class RootViewController: BaseViewController
     let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
     /*
      * Available menuStyles:
-     * .Plain, .Tab, .Smart, .Hacka, .Ellipse, .Web, .Suite, .NetLab, .NHK
+     * .plain, .tab, .smart, .hacka, .ellipse, .web, .suite, .netlab, .nhk
      * See PMKPageMenuItem.swift in PageMenuKit folder.
      * "menuColors: []" means that we will use the default colors.
      */
-    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Smart, menuColors: [], topBarHeight: statusBarHeight)
-//    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .Plain, menuColors: [.purple], topBarHeight: statusBarHeight)
+    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .smart, menuColors: [], topBarHeight: statusBarHeight)
+//    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .plain, menuColors: [.purple], topBarHeight: statusBarHeight)
     pageMenuController?.delegate = self
-    self.addChildViewController(pageMenuController!)
+    self.addChild(pageMenuController!)
     self.view.addSubview(pageMenuController!.view)
-    pageMenuController?.didMove(toParentViewController: self)
+    pageMenuController?.didMove(toParent: self)
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -104,7 +104,7 @@ extension RootViewController: PMKPageMenuControllerDelegate
   }
 
   func pageMenuController(_ pageMenuController: PMKPageMenuController, didPrepare menuItems: [PMKPageMenuItem]) {
-    // XXX: For .Hacka style
+    // XXX: For .hacka style
     var i: Int = 1
     for item: PMKPageMenuItem in menuItems {
       item.badgeValue = String(format: "%zd", i)
@@ -113,6 +113,6 @@ extension RootViewController: PMKPageMenuControllerDelegate
   }
 
   func pageMenuController(_ pageMenuController: PMKPageMenuController, didSelect menuItem: PMKPageMenuItem, at menuIndex: Int) {
-    menuItem.badgeValue = nil // XXX: For .Hacka style
+    menuItem.badgeValue = nil // XXX: For .hacka style
   }
 }

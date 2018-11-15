@@ -3,14 +3,14 @@
  * FILE:	PMKPageMenuItemNetLab.swift
  * DESCRIPTION:	PageMenuKit: PageMenuItem Class like "ねとらぼ" iOS App
  * DATE:	Thu, Jun  8 2017
- * UPDATED:	Fri, Jun  9 2017
+ * UPDATED:	Thu, Nov 15 2018
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
- * COPYRIGHT:	(c) 2017 阿部康一／Kouichi ABE (WALL), All rights reserved.
+ * COPYRIGHT:	(c) 2017-2018 阿部康一／Kouichi ABE (WALL), All rights reserved.
  * LICENSE:
  *
- *  Copyright (c) 2017 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
+ *  Copyright (c) 2017-2018 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -51,23 +51,23 @@ public class PMKPageMenuItemNetLab: PMKPageMenuItem {
   public required init(frame: CGRect, title: String, design: PMKPageMenuItemDesign) {
     super.init(frame: frame, title: title, design: design)
 
-    self.style = .NetLab
+    self.style = .netlab
   }
 
   override func render(active: Bool) {
-    if (active) {
-      self.label?.textColor = .white
-      self.label?.backgroundColor = self.design?.backgroundColor
-      self.roundingCorners(of: self.label!)
+    if active {
+      self.label.textColor = .white
+      self.label.backgroundColor = self.design.backgroundColor
+      self.roundCorners(of: self.label)
     }
     else {
-      self.label?.textColor = self.design?.titleColor
-      self.label?.backgroundColor = .clear
-      self.label?.layer.mask = nil
+      self.label.textColor = self.design.titleColor
+      self.label.backgroundColor = .clear
+      self.label.layer.mask = nil
     }
   }
 
-  override func roundingCorners(of label: UILabel) {
+  override func roundCorners(of label: UILabel) {
     autoreleasepool {
       let radius: CGFloat = 5.0
       let bounds: CGRect = label.bounds.insetBy(dx: 4.0, dy: 6.0)

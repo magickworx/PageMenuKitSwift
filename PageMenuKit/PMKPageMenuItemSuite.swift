@@ -3,14 +3,14 @@
  * FILE:	PMKPageMenuItemSuite.swift
  * DESCRIPTION:	PageMenuKit: PageMenuItem Class like "ニュース（News Suite）"
  * DATE:	Wed, Jun  7 2017
- * UPDATED:	Fri, Jun  9 2017
+ * UPDATED:	Thu, Nov 15 2018
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
- * COPYRIGHT:	(c) 2017 阿部康一／Kouichi ABE (WALL), All rights reserved.
+ * COPYRIGHT:	(c) 2017-2018 阿部康一／Kouichi ABE (WALL), All rights reserved.
  * LICENSE:
  *
- *  Copyright (c) 2017 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
+ *  Copyright (c) 2017-2018 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -51,40 +51,34 @@ public class PMKPageMenuItemSuite: PMKPageMenuItem {
   public required init(frame: CGRect, title: String, design: PMKPageMenuItemDesign) {
     super.init(frame: frame, title: title, design: design)
 
-    self.style = .Suite
+    self.style = .suite
 
     self.gradientBackground(of: self)
   }
 
   override func render(active: Bool) {
-    if (active) {
-      if let titleColor = self.design?.titleColor {
-        self.label?.textColor = titleColor
+    self.label.textColor = {
+      if active {
+        return self.design.titleColor
+      }
+      else if self.design.inactive.isEnabled {
+        return self.design.inactive.titleColor
       }
       else {
-        self.label?.textColor = .white
+        return .lightGray
       }
-    }
-    else {
-      if let design = self.design, design.inactive.isEnabled {
-        self.label?.textColor = design.inactive.titleColor
-      }
-      else {
-        self.label?.textColor = .lightGray
-      }
-    }
+    }()
   }
 
   func gradientBackground(of view: UIView) {
-    var gradientColors: [CGColor]
-    if let gradientColorsInDesign: [CGColor] = self.design?.gradientColors {
-      gradientColors = gradientColorsInDesign
-    }
-    else {
+    let gradientColors: [CGColor] = {
+      if self.design.gradientColors.count > 0 {
+        return self.design.gradientColors
+      }
       let    topColor: UIColor = UIColor.hexColor(0x445a66)
       let bottomColor: UIColor = UIColor.hexColor(0x677983)
-      gradientColors = [ topColor.cgColor, bottomColor.cgColor ]
-    }
+      return [ topColor.cgColor, bottomColor.cgColor ]
+    }()
     let gradientLayer: CAGradientLayer = CAGradientLayer()
     gradientLayer.colors = gradientColors
     gradientLayer.frame = view.bounds

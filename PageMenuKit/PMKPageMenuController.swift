@@ -3,14 +3,14 @@
  * FILE:	PMKPageMenuController.swift
  * DESCRIPTION:	PageMenuKit: Paging Menu View Controller
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Mon, Nov 13 2017
+ * UPDATED:	Thu, Nov 15 2018
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
- * COPYRIGHT:	(c) 2017 阿部康一／Kouichi ABE (WALL), All rights reserved.
+ * COPYRIGHT:	(c) 2017-2018 阿部康一／Kouichi ABE (WALL), All rights reserved.
  * LICENSE:
  *
- *  Copyright (c) 2017 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
+ *  Copyright (c) 2017-2018 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -70,20 +70,43 @@ let kNHKNewsHexColor: UInt32 = 0x0387d2
 public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
 {
   public weak var delegate: PMKPageMenuControllerDelegate? = nil
-  public internal(set) var menuStyle: PMKPageMenuControllerStyle = .Plain
+
+  public internal(set) var menuStyle: PMKPageMenuControllerStyle = .plain
   public internal(set) var titles: [String] = []
   public internal(set) var childControllers: [UIViewController] = []
   public internal(set) var menuColors: [UIColor] = []
 
-  var topBarHeight: CGFloat = 40.0
-  var scrollView: UIScrollView? = nil
-  var itemMargin: CGFloat = 0.0
-  var separatorHeight: CGFloat = kSeparatorHeight
-  var indicatorHeight: CGFloat = kIndicatorHeight
-  var menuSeparator: CALayer? = nil
-  var menuIndicator: UIView? = nil
-  var menuItems: [PMKPageMenuItem] = []
-  var pageViewController: UIPageViewController? = nil
+  private var topBarHeight: CGFloat = 40.0
+  private var itemMargin: CGFloat = 0.0
+  private var separatorHeight: CGFloat = kSeparatorHeight
+  private var indicatorHeight: CGFloat = kIndicatorHeight
+
+  private var menuSeparator: CALayer = {
+    let layer: CALayer = CALayer()
+    layer.actions = [ "backgroundColor" : NSNull() ]
+    return layer
+  }()
+  private var menuIndicator: UIView = UIView()
+  private var menuItems: [PMKPageMenuItem] = []
+
+  private lazy var pageViewController: UIPageViewController = {
+    let style: UIPageViewController.TransitionStyle = .scroll
+    let pageViewController = UIPageViewController(transitionStyle: style, navigationOrientation: .horizontal, options: nil)
+    pageViewController.delegate = self
+    pageViewController.dataSource = self
+    return pageViewController
+  }()
+
+  private lazy var scrollView: UIScrollView = {
+    let scrollView = UIScrollView()
+    scrollView.backgroundColor = .clear
+    scrollView.delegate = self
+    scrollView.bounces = false
+    scrollView.scrollsToTop = false
+    scrollView.isPagingEnabled = false
+    scrollView.showsHorizontalScrollIndicator = false
+    return scrollView
+  }()
 
   public static let standardColors: [UIColor] = [
 	UIColor.hexColor(0xff7f7f),
@@ -112,19 +135,18 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
 
     self.childControllers = controllers
 
-    var titles: [String] = []
-    for (index, viewController) in controllers.enumerated() {
-      if let title = viewController.value(forKey: "title") as? String,
-         title.count > 0 {
-        titles.append(title)
+    self.titles = controllers.enumerated().map {
+      // $0.0 ... index
+      // $0.1 ... UIViewController
+      if let title = $0.1.value(forKey: "title") as? String, title.count > 0 {
+        return title
       }
       else {
-        titles.append(String(format: "Title%zd", index + 1))
+        return String(format: "Title%zd", $0.0 + 1)
       }
     }
-    self.titles = titles
 
-    self.prepareForMenuStyle(menuStyle)
+    prepareForMenuStyle(menuStyle)
   }
 
   public override func loadView() {
@@ -135,50 +157,36 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
     let x: CGFloat = 0.0
     let y: CGFloat = topBarHeight
     let w: CGFloat = width
-    let h: CGFloat = kMenuItemHeight + self.separatorHeight
+    let h: CGFloat = kMenuItemHeight + separatorHeight
 
-    scrollView = UIScrollView(frame: CGRect(x: x, y: y, width: w, height: h))
-    scrollView?.backgroundColor = .clear
-    scrollView?.delegate = self
-    scrollView?.bounces = false
-    scrollView?.scrollsToTop = false
-    scrollView?.isPagingEnabled = false
-    scrollView?.showsHorizontalScrollIndicator = false
-    self.view.addSubview(scrollView!)
+    scrollView.frame = CGRect(x: x, y: y, width: w, height: h)
+    self.view.addSubview(scrollView)
 
-    self.prepareForMenuItems()
-    self.prepareForMenuSeparator()
-    self.prepareForMenuIndicator()
+    prepareForMenuItems()
+    prepareForMenuSeparator()
+    prepareForMenuIndicator()
   }
 
   public override func viewDidLoad() {
     super.viewDidLoad()
-
-    let style: UIPageViewControllerTransitionStyle = .scroll
-    let pageViewController: UIPageViewController = UIPageViewController(transitionStyle: style, navigationOrientation: .horizontal, options: nil)
-    pageViewController.delegate = self
 
     if let startingViewController: UIViewController = self.childControllers.first {
       let viewControllers: [UIViewController] = [startingViewController]
       pageViewController.setViewControllers(viewControllers, direction: .forward, animated: false, completion: nil)
     }
 
-    pageViewController.dataSource = self
-
-    self.addChildViewController(pageViewController)
+    self.addChild(pageViewController)
     self.view.addSubview(pageViewController.view)
 
     let  width: CGFloat = self.view.bounds.size.width
     let height: CGFloat = self.view.bounds.size.height
 
     let x: CGFloat = 0.0
-    let y: CGFloat = topBarHeight + self.scrollView!.frame.size.height
+    let y: CGFloat = topBarHeight + scrollView.frame.size.height
     let w: CGFloat = width
     let h: CGFloat = height - y
     pageViewController.view.frame = CGRect(x: x, y: y, width: w, height: h)
-
-    pageViewController.didMove(toParentViewController: self)
-    self.pageViewController = pageViewController
+    pageViewController.didMove(toParent: self)
 
     delegate?.pageMenuController(self, didPrepare: menuItems)
   }
@@ -186,11 +194,11 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
 
   // MARK: convenient method
   func menuColor(at index: Int) -> UIColor {
-    let numberOfColors: Int = self.menuColors.count
+    let numberOfColors: Int = menuColors.count
     guard numberOfColors > 0 else {
       return PMKPageMenuController.standardColors[index % PMKPageMenuController.standardColors.count]
     }
-    return self.menuColors[index % numberOfColors]
+    return menuColors[index % numberOfColors]
   }
 
   // MARK: - Properties
@@ -220,18 +228,17 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
 
     let item: PMKPageMenuItem = self.menuItems[index]
     switch (menuStyle) {
-      case .Plain, .Suite:
-        if var frame: CGRect = self.menuIndicator?.frame {
-          frame.origin.x = x
-          self.menuIndicator?.frame = frame
-        }
-      case .Tab:
-        self.menuSeparator?.backgroundColor = item.color.cgColor
-        self.menuIndicator?.backgroundColor = .clear
-      case .Smart:
-        self.menuIndicator?.backgroundColor = item.color
-      case .Hacka:
-        self.menuIndicator?.backgroundColor = .clear
+      case .plain, .suite:
+        var frame: CGRect = menuIndicator.frame
+        frame.origin.x = x
+        menuIndicator.frame = frame
+      case .tab:
+        menuSeparator.backgroundColor = item.color.cgColor
+        menuIndicator.backgroundColor = .clear
+      case .smart:
+        menuIndicator.backgroundColor = item.color
+      case .hacka:
+        menuIndicator.backgroundColor = .clear
       default:
         break
     }
@@ -245,18 +252,17 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
     var x: CGFloat = w * CGFloat(index)
     let y: CGFloat = 0.0
 
-    let  width: CGFloat = self.scrollView!.frame.size.width
+    let  width: CGFloat = scrollView.frame.size.width
     // 選択したタブを中央寄せにする計算
-    let   size:  CGSize = self.scrollView!.contentSize
+    let   size:  CGSize = scrollView.contentSize
     let  leftX: CGFloat = (width - w) * 0.5 // 画面幅の半分からタブ幅の半分を引く
     let   tabN: CGFloat = ceil(width / w) // 画面内に見えるタブの数
     let rightX: CGFloat = size.width - floor((tabN * 0.5 + 0.5) * w)
          if (x <  leftX) { x  = 0.0 }
     else if (x > rightX) { x  = size.width - width }
     else		 { x -= leftX }
-    self.scrollView?.setContentOffset(CGPoint(x: x, y: y), animated: true)
+    scrollView.setContentOffset(CGPoint(x: x, y: y), animated: true)
   }
-
 }
 
 // MARK: - Prepartions
@@ -265,111 +271,84 @@ extension PMKPageMenuController
   // CUSTOM: Add the settings for your custom menu style here.
   func prepareForMenuStyle(_ menuStyle: PMKPageMenuControllerStyle) {
     switch (menuStyle) {
-      case .Plain:
-        self.itemMargin = kMenuItemMargin
-        self.separatorHeight = 1.0
-        self.indicatorHeight = 3.0
-        break
-      case .Tab:
-        self.itemMargin = 0.0
-        self.separatorHeight = 4.0
-        self.indicatorHeight = 4.0
-        break
-      case .Smart:
-        self.itemMargin = 0.0
-        self.separatorHeight = 0.0
-        break
-      case .Hacka:
-        self.itemMargin = kMenuItemMargin * 0.4
-        break
-      case .Web:
-        self.itemMargin = 0.0
-        self.separatorHeight = 4.0
-        self.indicatorHeight = 0.0
-        break
-      case .Ellipse, .NetLab:
-        self.itemMargin = 0.0
-        self.separatorHeight = 0.0
-        self.indicatorHeight = 0.0
-        break
-      case .Suite:
-        self.itemMargin = 0.0
-        self.separatorHeight = 0.0
-        self.indicatorHeight = 4.0
-        break
-      case .NHK:
-        self.itemMargin = 0.0
-        self.separatorHeight = 2.0
-        self.indicatorHeight = 0.0
-        break
+      case .plain:
+        itemMargin = kMenuItemMargin
+        separatorHeight = 1.0
+        indicatorHeight = 3.0
+      case .tab:
+        itemMargin = 0.0
+        separatorHeight = 4.0
+        indicatorHeight = 4.0
+      case .smart:
+        itemMargin = 0.0
+        separatorHeight = 0.0
+      case .hacka:
+        itemMargin = kMenuItemMargin * 0.4
+      case .web:
+        itemMargin = 0.0
+        separatorHeight = 4.0
+        indicatorHeight = 0.0
+      case .ellipse, .netlab:
+        itemMargin = 0.0
+        separatorHeight = 0.0
+        indicatorHeight = 0.0
+      case .suite:
+        itemMargin = 0.0
+        separatorHeight = 0.0
+        indicatorHeight = 4.0
+      case .nhk:
+        itemMargin = 0.0
+        separatorHeight = 2.0
+        indicatorHeight = 0.0
     }
   }
 
   // CUSTOM: Add the separator color for your custom menu style if needed.
   func prepareForMenuSeparator() {
-    var color: UIColor = .clear
-    if let firstColor: UIColor = self.menuColors.first {
-      color = firstColor
-    }
-    else {
+    let color: UIColor = {
+      if let firstColor: UIColor = menuColors.first { return firstColor }
       switch (menuStyle) {
-        case .Plain, .Web:
-          color = .orange
-        case .Hacka:
-          color = UIColor.hexColor(kHackaHexColor)
-        case .NHK:
-          color = UIColor.hexColor(kNHKNewsHexColor)
-        default:
-          color = PMKPageMenuController.standardColors.first!
+        case .plain, .web: return .orange
+        case .hacka:       return UIColor.hexColor(kHackaHexColor)
+        case .nhk:         return UIColor.hexColor(kNHKNewsHexColor)
+        default:           return PMKPageMenuController.standardColors.first!
       }
-    }
-    let  width: CGFloat = self.scrollView!.contentSize.width
-    let height: CGFloat = self.scrollView!.frame.size.height
+    }()
+    let  width: CGFloat = scrollView.contentSize.width
+    let height: CGFloat = scrollView.frame.size.height
 
     let w: CGFloat = width
-    let h: CGFloat = self.separatorHeight
+    let h: CGFloat = separatorHeight
     let x: CGFloat = 0.0
     let y: CGFloat = height - h
 
-    let layer: CALayer = CALayer()
-    layer.frame = CGRect(x: x, y: y, width: w, height: h)
-    layer.actions = [ "backgroundColor" : NSNull() ]
-    layer.backgroundColor = color.cgColor
-    self.scrollView?.layer.addSublayer(layer)
-    self.menuSeparator = layer
+    menuSeparator.frame = CGRect(x: x, y: y, width: w, height: h)
+    menuSeparator.backgroundColor = color.cgColor
+    scrollView.layer.addSublayer(menuSeparator)
   }
 
   // CUSTOM: Add the indicator color for your custom menu style if needed.
   func prepareForMenuIndicator() {
     let x: CGFloat = 0.0
-    let y: CGFloat = self.scrollView!.frame.size.height - self.indicatorHeight
-    let w: CGFloat = menuStyle == .Tab || menuStyle == .Smart
-                   ? self.scrollView!.contentSize.width
+    let y: CGFloat = scrollView.frame.size.height - indicatorHeight
+    let w: CGFloat = menuStyle == .tab || menuStyle == .smart
+                   ? scrollView.contentSize.width
                    : kMenuItemWidth
-    let h: CGFloat = self.indicatorHeight
+    let h: CGFloat = indicatorHeight
 
-    var color: UIColor = .clear
-    if let firstColor: UIColor = self.menuColors.first {
-      color = firstColor
-    }
-    else {
+    let color: UIColor = {
+      if let firstColor: UIColor = menuColors.first { return firstColor }
       switch (menuStyle) {
-        case .Plain:
-          color = .orange
-        case .Hacka:
-          color = UIColor.hexColor(kHackaHexColor)
-        case .Suite:
-          color = UIColor.hexColor(0x7ab7cc)
-        default:
-          color = PMKPageMenuController.standardColors.first!
+        case .plain: return .orange
+        case .hacka: return UIColor.hexColor(kHackaHexColor)
+        case .suite: return UIColor.hexColor(0x7ab7cc)
+        default:     return PMKPageMenuController.standardColors.first!
       }
-    }
+    }()
 
-    let menuIndicator: UIView
-    menuIndicator = UIView(frame: CGRect(x: x, y: y, width: w, height: h))
+    menuIndicator.frame = CGRect(x: x, y: y, width: w, height: h)
     menuIndicator.backgroundColor = color
-    self.scrollView?.addSubview(menuIndicator)
-    self.menuIndicator = menuIndicator
+    scrollView.addSubview(menuIndicator)
   }
 
   @objc func handleSingleTap(_ gesture: UITapGestureRecognizer) {
@@ -377,9 +356,9 @@ extension PMKPageMenuController
       index -= kMenuItemBaseTag
       let  viewController: UIViewController = self.childControllers[index]
       let viewControllers: [UIViewController] = [viewController]
-      let direction: UIPageViewControllerNavigationDirection = (index > currentIndex) ? .forward : .reverse
+      let direction: UIPageViewController.NavigationDirection = (index > currentIndex) ? .forward : .reverse
       self.currentIndex = index
-      self.pageViewController?.setViewControllers(viewControllers, direction: direction, animated: true, completion: nil)
+      pageViewController.setViewControllers(viewControllers, direction: direction, animated: true, completion: nil)
     }
   }
 
@@ -408,7 +387,7 @@ extension PMKPageMenuController
     self.menuItems = []
 
     var x: CGFloat = 0.0
-    let y: CGFloat = menuStyle == .Smart || menuStyle == .Hacka
+    let y: CGFloat = menuStyle == .smart || menuStyle == .hacka
                    ? kSmartTabMargin
                    : 0.0
     let w: CGFloat = kMenuItemWidth
@@ -418,38 +397,31 @@ extension PMKPageMenuController
     for i in 0 ..< count {
       let frame: CGRect = CGRect(x: x, y: y, width: w, height: h)
       let title: String = self.titles[i]
-      var color: UIColor = .clear
-      if self.menuColors.count == 0 { // 色指定がない場合はデフォルト色を使用
-        switch (menuStyle) {
-          case .Plain:
-            color = .orange
-          case .Hacka:
-            color = UIColor.hexColor(kHackaHexColor)
-          case .Ellipse:
-            color = UIColor.hexColor(kJCNewsHexColor)
-          case .NetLab:
-            color = UIColor.hexColor(kNetLabHexColor)
-          case .NHK:
-            color = UIColor.hexColor(kNHKNewsHexColor)
-          default:
-            color = self.menuColor(at: i)
+      let color: UIColor = {
+        if menuColors.count == 0 { // 色指定がない場合はデフォルト色を使用
+          switch (menuStyle) {
+            case .plain:   return .orange
+            case .hacka:   return UIColor.hexColor(kHackaHexColor)
+            case .ellipse: return UIColor.hexColor(kJCNewsHexColor)
+            case .netlab:  return UIColor.hexColor(kNetLabHexColor)
+            case .nhk:     return UIColor.hexColor(kNHKNewsHexColor)
+            default:       return self.menuColor(at: i)
+          }
         }
-      }
-      else {
         switch (menuStyle) {
-          case .Plain, .Hacka, .Ellipse, .NetLab, .NHK:
-            color = self.menuColor(at: 0)
+          case .plain, .hacka, .ellipse, .netlab, .nhk:
+            return self.menuColor(at: 0)
           default:
-            color = self.menuColor(at: i)
+            return self.menuColor(at: i)
         }
-      }
+      }()
 
       let design = PMKPageMenuItemDesign(themeColor: color)
       switch (menuStyle) { // set default design
-        case .Web:
+        case .web:
           design.inactive.isEnabled = true
           design.inactive.backgroundColor = UIColor.hexColor(0x332f2e)
-        case .Suite:
+        case .suite:
           design.titleColor = .white
           design.gradientColors = [
             UIColor.hexColor(0x445a66).cgColor,
@@ -457,7 +429,7 @@ extension PMKPageMenuController
           ]
           design.inactive.isEnabled = true
           design.inactive.titleColor = .lightGray
-        case .NetLab:
+        case .netlab:
           design.backgroundColor = UIColor.hexColor(0xcb8fad)
         default:
           break
@@ -467,7 +439,7 @@ extension PMKPageMenuController
       let classType = stringClassFromString(className) as! PMKPageMenuItem.Type
       let item: PMKPageMenuItem = classType.init(frame: frame, title: title, design: design)
       item.tag = kMenuItemBaseTag + i
-      self.scrollView?.addSubview(item)
+      scrollView.addSubview(item)
       x += (w + itemMargin)
 
       item.isSelected = (i == 0)
@@ -477,11 +449,11 @@ extension PMKPageMenuController
       item.addGestureRecognizer(tapGesture)
     }
 
-    let  width: CGFloat = self.scrollView!.bounds.size.width
-    let height: CGFloat = self.scrollView!.bounds.size.height
-    self.scrollView?.contentSize = CGSize(width: x, height: height)
+    let  width: CGFloat = scrollView.bounds.size.width
+    let height: CGFloat = scrollView.bounds.size.height
+    scrollView.contentSize = CGSize(width: x, height: height)
 
-    var frame: CGRect = self.scrollView!.frame
+    var frame: CGRect = scrollView.frame
     if (width > x) { // 項目が少ないのね
       frame.origin.x = floor((width - x) * 0.5)
       frame.size.width = x
@@ -490,7 +462,7 @@ extension PMKPageMenuController
       frame.origin.x = 0.0
       frame.size.width = width
     }
-    self.scrollView?.frame = frame
+    scrollView.frame = frame
   }
 
 }
@@ -499,11 +471,11 @@ extension PMKPageMenuController
 extension PMKPageMenuController
 {
   public func setMenuSeparatorColor(_ color: UIColor) {
-    self.menuSeparator?.backgroundColor = color.cgColor
+    menuSeparator.backgroundColor = color.cgColor
   }
 
   public func setMenuIndicatorColor(_ color: UIColor) {
-    self.menuIndicator?.backgroundColor = color
+    menuIndicator.backgroundColor = color
   }
 
 }
@@ -528,10 +500,8 @@ extension PMKPageMenuController: UIPageViewControllerDelegate
   // MARK - UIPageViewControllerDelegate (optional)
   public func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     if let viewController: UIViewController = pageViewController.viewControllers?.last {
-      guard let index = self.childControllers.index(of: viewController) else {
-        return
-      }
-      if (completed) {
+      guard let index = self.childControllers.index(of: viewController) else { return }
+      if completed {
         self.currentIndex = index
       }
       else {
@@ -541,9 +511,8 @@ extension PMKPageMenuController: UIPageViewControllerDelegate
   }
 
   // MARK - UIPageViewControllerDelegate (optional)
-  public func pageViewController(_ pageViewController: UIPageViewController, spineLocationFor orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
-    if UIInterfaceOrientationIsPortrait(orientation) ||
-       UIDevice.current.userInterfaceIdiom == .phone {
+  public func pageViewController(_ pageViewController: UIPageViewController, spineLocationFor orientation: UIInterfaceOrientation) -> UIPageViewController.SpineLocation {
+    if orientation.isPortrait || UIDevice.current.userInterfaceIdiom == .phone {
       if let currentViewController: UIViewController = pageViewController.viewControllers?.first {
         let viewControllers: [UIViewController] = [currentViewController]
         pageViewController.setViewControllers(viewControllers, direction: .forward, animated: true, completion: nil)

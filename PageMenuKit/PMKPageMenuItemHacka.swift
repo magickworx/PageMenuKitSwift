@@ -3,14 +3,14 @@
  * FILE:	PMKPageMenuItemHacka.swift
  * DESCRIPTION:	PageMenuKit: PageMenuItem Class like "ハッカドール" iOS App
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Fri, Jun  9 2017
+ * UPDATED:	Thu, Nov 15 2018
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
- * COPYRIGHT:	(c) 2017 阿部康一／Kouichi ABE (WALL), All rights reserved.
+ * COPYRIGHT:	(c) 2017-2018 阿部康一／Kouichi ABE (WALL), All rights reserved.
  * LICENSE:
  *
- *  Copyright (c) 2017 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
+ *  Copyright (c) 2017-2018 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -53,34 +53,32 @@ public class PMKPageMenuItemHacka: PMKPageMenuItem {
   public required init(frame: CGRect, title: String, design: PMKPageMenuItemDesign) {
     super.init(frame: frame, title: title, design: design)
 
-    self.style = .Hacka
+    self.style = .hacka
     self.titleColor = design.themeColor
     self.borderColor = design.themeColor
 
-    self.addBorders(of: self.label!)
+    self.addBorders(to: self.label)
   }
 
   override func render(active: Bool) {
-    if (active) {
-      self.label?.textColor = .white
-      self.label?.backgroundColor = self.design?.themeColor
-      var frame: CGRect = self.frame
+    var frame: CGRect = self.frame
+    if active {
+      self.label.textColor = .white
+      self.label.backgroundColor = self.design.themeColor
+      self.borderLayer?.isHidden = true
       frame.origin.y = 0.0
       frame.size.height = kMenuItemHeight
-      self.frame = frame
-      self.borderLayer?.isHidden = true
     }
     else {
-      self.label?.textColor = self.design?.themeColor
-      self.label?.backgroundColor = .clear
+      self.label.textColor = self.design.themeColor
+      self.label.backgroundColor = .clear
       self.borderLayer?.isHidden = false
-      var frame: CGRect = self.frame
       frame.origin.y = kSmartTabMargin
       frame.size.height = kMenuItemHeight - kSmartTabMargin
-      self.frame = frame
     }
+    self.frame = frame
 
-    if let textLayer = self.label?.layer.value(forKey: kBadgeLayerKey) as? CATextLayer {
+    if let textLayer = self.label.layer.value(forKey: kBadgeLayerKey) as? CATextLayer {
       textLayer.isHidden = (self.badgeValue == nil || active)
     }
   }
@@ -93,27 +91,30 @@ public class PMKPageMenuItemHacka: PMKPageMenuItem {
 
   override public var badgeValue: String? {
     willSet {
-      var textLayer: CATextLayer? = self.label?.layer.value(forKey: kBadgeLayerKey) as? CATextLayer
-      if textLayer == nil {
+      let textLayer: CATextLayer = {
+        if let textLayer = self.label.layer.value(forKey: kBadgeLayerKey) as? CATextLayer {
+          return textLayer
+        }
         let w: CGFloat = 16.0
         let h: CGFloat = w
-        let x: CGFloat = self.label!.frame.size.width - w - 4.0
+        let x: CGFloat = self.label.frame.size.width - w - 4.0
         let y: CGFloat = -kSmartTabMargin
-        textLayer = CATextLayer()
-        textLayer?.frame = CGRect(x: x, y: y, width: w, height: h)
-        textLayer?.fontSize = 12.0
-        textLayer?.foregroundColor = UIColor.white.cgColor
-        textLayer?.backgroundColor = UIColor.red.cgColor
-        textLayer?.cornerRadius = w * 0.5
-        textLayer?.masksToBounds = true
-        textLayer?.alignmentMode = kCAAlignmentCenter
-        textLayer?.contentsScale = UIScreen.main.scale
-        textLayer?.actions = [ "hidden" : NSNull() ]
-        self.label?.layer.addSublayer(textLayer!)
-        self.label?.layer.setValue(textLayer, forKey: kBadgeLayerKey)
-      }
-      textLayer?.string = newValue
-      textLayer?.isHidden = (newValue == nil || isSelected)
+        let textLayer = CATextLayer()
+        textLayer.frame = CGRect(x: x, y: y, width: w, height: h)
+        textLayer.fontSize = 12.0
+        textLayer.foregroundColor = UIColor.white.cgColor
+        textLayer.backgroundColor = UIColor.red.cgColor
+        textLayer.cornerRadius = w * 0.5
+        textLayer.masksToBounds = true
+        textLayer.alignmentMode = .center
+        textLayer.contentsScale = UIScreen.main.scale
+        textLayer.actions = [ "hidden" : NSNull() ]
+        self.label.layer.addSublayer(textLayer)
+        self.label.layer.setValue(textLayer, forKey: kBadgeLayerKey)
+        return textLayer
+      }()
+      textLayer.string = newValue
+      textLayer.isHidden = (newValue == nil || isSelected)
     }
   }
 }
