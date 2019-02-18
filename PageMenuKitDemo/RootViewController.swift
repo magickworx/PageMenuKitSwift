@@ -3,14 +3,14 @@
  * FILE:	RootViewController.swift
  * DESCRIPTION:	PageMenuKitDemo: Application Root View Controller
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Thu, Nov 15 2018
+ * UPDATED:	Mon, Feb 18 2019
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
- * COPYRIGHT:	(c) 2017-2018 阿部康一／Kouichi ABE (WALL), All rights reserved.
+ * COPYRIGHT:	(c) 2017-2019 阿部康一／Kouichi ABE (WALL), All rights reserved.
  * LICENSE:
  *
- *  Copyright (c) 2017-2018 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
+ *  Copyright (c) 2017-2019 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -79,9 +79,10 @@ class RootViewController: BaseViewController
      * .plain, .tab, .smart, .hacka, .ellipse, .web, .suite, .netlab, .nhk
      * See PMKPageMenuItem.swift in PageMenuKit folder.
      * "menuColors: []" means that we will use the default colors.
+     * "startIndex" can be set 1...controllers.count.
      */
-    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .smart, menuColors: [], topBarHeight: statusBarHeight)
-//    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .plain, menuColors: [.purple], topBarHeight: statusBarHeight)
+    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .smart, menuColors: [], startIndex: 1, topBarHeight: statusBarHeight)
+//    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .plain, menuColors: [.purple], startIndex: 8, topBarHeight: statusBarHeight)
     pageMenuController?.delegate = self
     self.addChild(pageMenuController!)
     self.view.addSubview(pageMenuController!.view)

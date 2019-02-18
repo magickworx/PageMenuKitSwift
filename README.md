@@ -5,7 +5,7 @@
 日本のニュース系アプリで使われている横スクロールのメニュー画面とそのコンテンツを表示するユーザインタフェースのクラス。
 Xcode のプロジェクト一式を登録してあるので、実行すればシミュレータ上で動作確認が可能。
 
-Swift3 で実装し直す際に、汎用的で拡張しやすいようにクラスを再設計した。ページメニューの見た目だけが違うので、スタイルごとに PMKPageMenuItem のサブクラスを実装し、それを利用する仕組みにした。よって、簡単にカスタムメニューを追加できる。
+Swift で実装し直す際に、汎用的で拡張しやすいようにクラスを再設計した。ページメニューの見た目だけが違うので、スタイルごとに PMKPageMenuItem のサブクラスを実装し、それを利用する仕組みにした。よって、簡単にカスタムメニューを追加できる。
 
 ## How to use PageMenuKit.framework
 
@@ -36,11 +36,12 @@ class RootViewController: UIViewController
      * See PMKPageMenuItem.swift in PageMenuKit folder.
      *
      * menuColors: [] means that we will use the default colors
+     * "startIndex" can be set 1...controllers.count.
      */
-    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .smart, menuColors: [], topBarHeight: statusBarHeight)
-    self.addChildViewController(pageMenuController!)
+    pageMenuController = PMKPageMenuController(controllers: controllers, menuStyle: .smart, menuColors: [], startIndex: 1, topBarHeight: statusBarHeight)
+    self.addChild(pageMenuController!)
     self.view.addSubview(pageMenuController!.view)
-    pageMenuController?.didMove(toParentViewController: self)
+    pageMenuController?.didMove(toParent: self)
   }
 }
 ```
@@ -228,7 +229,7 @@ Qiita の[ニュース系アプリのユーザインタフェース PageMenuKit 
 
 ## License Agreement
 
-Copyright (c) 2017-2018, Kouichi ABE (WALL) All rights reserved.
+Copyright (c) 2017-2019, Kouichi ABE (WALL) All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:

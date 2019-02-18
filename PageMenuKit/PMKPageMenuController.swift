@@ -3,14 +3,14 @@
  * FILE:	PMKPageMenuController.swift
  * DESCRIPTION:	PageMenuKit: Paging Menu View Controller
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Thu, Nov 15 2018
+ * UPDATED:	Mon, Feb 18 2019
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
- * COPYRIGHT:	(c) 2017-2018 阿部康一／Kouichi ABE (WALL), All rights reserved.
+ * COPYRIGHT:	(c) 2017-2019 阿部康一／Kouichi ABE (WALL), All rights reserved.
  * LICENSE:
  *
- *  Copyright (c) 2017-2018 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
+ *  Copyright (c) 2017-2019 Kouichi ABE (WALL) <kouichi@MagickWorX.COM>,
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -76,6 +76,8 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
   public internal(set) var childControllers: [UIViewController] = []
   public internal(set) var menuColors: [UIColor] = []
 
+  private var startIndex: Int = 0
+
   private var topBarHeight: CGFloat = 40.0
   private var itemMargin: CGFloat = 0.0
   private var separatorHeight: CGFloat = kSeparatorHeight
@@ -125,11 +127,15 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
   public init(controllers: [UIViewController],
                 menuStyle: PMKPageMenuControllerStyle,
                menuColors: [UIColor] = PMKPageMenuController.standardColors,
+               startIndex: Int = 1,
              topBarHeight: CGFloat) {
     super.init(nibName: nil, bundle: nil)
 
        self.menuStyle = menuStyle
       self.menuColors = menuColors
+      self.startIndex = startIndex > 0 && startIndex < controllers.count
+                      ? startIndex - 1
+                      : 0
     self.topBarHeight = topBarHeight
     self.currentIndex = 0
 
@@ -170,10 +176,7 @@ public class PMKPageMenuController: UIViewController, UIScrollViewDelegate
   public override func viewDidLoad() {
     super.viewDidLoad()
 
-    if let startingViewController: UIViewController = self.childControllers.first {
-      let viewControllers: [UIViewController] = [startingViewController]
-      pageViewController.setViewControllers(viewControllers, direction: .forward, animated: false, completion: nil)
-    }
+    changeMenuItem(at: startIndex)
 
     self.addChild(pageViewController)
     self.view.addSubview(pageViewController.view)
@@ -351,14 +354,18 @@ extension PMKPageMenuController
     scrollView.addSubview(menuIndicator)
   }
 
+  fileprivate func changeMenuItem(at index: Int) {
+    let  viewController: UIViewController = self.childControllers[index]
+    let viewControllers: [UIViewController] = [viewController]
+    let direction: UIPageViewController.NavigationDirection = (index > currentIndex) ? .forward : .reverse
+    self.currentIndex = index
+    pageViewController.setViewControllers(viewControllers, direction: direction, animated: true, completion: nil)
+  }
+
   @objc func handleSingleTap(_ gesture: UITapGestureRecognizer) {
     if var index: Int = gesture.view?.tag {
       index -= kMenuItemBaseTag
-      let  viewController: UIViewController = self.childControllers[index]
-      let viewControllers: [UIViewController] = [viewController]
-      let direction: UIPageViewController.NavigationDirection = (index > currentIndex) ? .forward : .reverse
-      self.currentIndex = index
-      pageViewController.setViewControllers(viewControllers, direction: direction, animated: true, completion: nil)
+      changeMenuItem(at: index)
     }
   }
 
