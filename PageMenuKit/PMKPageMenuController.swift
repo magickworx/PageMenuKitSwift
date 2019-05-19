@@ -3,7 +3,7 @@
  * FILE:	PMKPageMenuController.swift
  * DESCRIPTION:	PageMenuKit: Paging Menu View Controller
  * DATE:	Fri, Jun  2 2017
- * UPDATED:	Mon, Feb 18 2019
+ * UPDATED:	Sun, May 19 2019
  * AUTHOR:	Kouichi ABE (WALL) / 阿部康一
  * E-MAIL:	kouichi@MagickWorX.COM
  * URL:		http://www.MagickWorX.COM/
@@ -35,8 +35,6 @@
  *   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  *   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  *   THE POSSIBILITY OF SUCH DAMAGE.
- *
- * $Id$
  *
  *****************************************************************************/
 
@@ -495,7 +493,7 @@ extension PMKPageMenuController: UIPageViewControllerDelegate
   // MARK - UIPageViewControllerDelegate (optional)
   public func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
     if let viewController: UIViewController = pendingViewControllers.last {
-      if let index = self.childControllers.index(of: viewController) {
+      if let index = self.childControllers.firstIndex(of: viewController) {
         if index != currentIndex {
           self.willMoveIndicator(at: index)
         }
@@ -507,7 +505,7 @@ extension PMKPageMenuController: UIPageViewControllerDelegate
   // MARK - UIPageViewControllerDelegate (optional)
   public func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     if let viewController: UIViewController = pageViewController.viewControllers?.last {
-      guard let index = self.childControllers.index(of: viewController) else { return }
+      guard let index = self.childControllers.firstIndex(of: viewController) else { return }
       if completed {
         self.currentIndex = index
       }
@@ -539,7 +537,7 @@ extension PMKPageMenuController: UIPageViewControllerDataSource
 {
   // MARK - UIPageViewControllerDataSource (required)
   public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-    if let index = self.childControllers.index(of: viewController) {
+    if let index = self.childControllers.firstIndex(of: viewController) {
       if index != 0 && index != NSNotFound {
         return self.childControllers[index - 1]
       }
@@ -549,7 +547,7 @@ extension PMKPageMenuController: UIPageViewControllerDataSource
 
   // MARK - UIPageViewControllerDataSource (required)
   public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-    if let index = self.childControllers.index(of: viewController) {
+    if let index = self.childControllers.firstIndex(of: viewController) {
       let count: Int = self.childControllers.count
       if index != NSNotFound && index + 1 < count {
         return self.childControllers[index + 1]
