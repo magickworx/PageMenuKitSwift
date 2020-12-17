@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		B3FD5BBA1EE967FE00842272 /* PageMenuKitFatBinary */ = {
+		B33FF34C258B2415004DBC52 /* PageMenuKitSwiftXCFramework */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = B3FD5BBB1EE967FE00842272 /* Build configuration list for PBXAggregateTarget "PageMenuKitFatBinary" */;
+			buildConfigurationList = B33FF34F258B2415004DBC52 /* Build configuration list for PBXAggregateTarget "PageMenuKitSwiftXCFramework" */;
 			buildPhases = (
-				B3FD5BBE1EE9681B00842272 /* ShellScript */,
-				B3FD5BBF1EE9684A00842272 /* ShellScript */,
+				B33FF353258B2426004DBC52 /* ShellScript */,
 			);
 			dependencies = (
 			);
-			name = PageMenuKitFatBinary;
-			productName = PageMenuKitFatBinary;
+			name = PageMenuKitSwiftXCFramework;
+			productName = PageMenuKitSwiftXCFramework;
 		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
 		B3650E861EEA566500B3D2BB /* PMKPageMenuItemNHK.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3650E851EEA566500B3D2BB /* PMKPageMenuItemNHK.swift */; };
-		B3650E891EEA798000B3D2BB /* PageMenuKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FD5BAD1EE967A000842272 /* PageMenuKit.framework */; };
+		B3FA139D23A2A86D00F1C379 /* PageMenuKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FD5BAD1EE967A000842272 /* PageMenuKit.framework */; };
+		B3FA139E23A2A86E00F1C379 /* PageMenuKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3FD5BAD1EE967A000842272 /* PageMenuKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3FD5BB11EE967A000842272 /* PageMenuKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B3FD5BAF1EE967A000842272 /* PageMenuKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3FD5BC71EE96AC100842272 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD5BC61EE96AC100842272 /* AppDelegate.swift */; };
 		B3FD5BCE1EE96AC100842272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3FD5BCD1EE96AC100842272 /* Assets.xcassets */; };
@@ -53,6 +53,20 @@
 			remoteInfo = PageMenuKit;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B3FA139F23A2A86E00F1C379 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B3FA139E23A2A86E00F1C379 /* PageMenuKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B3650E851EEA566500B3D2BB /* PMKPageMenuItemNHK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMKPageMenuItemNHK.swift; sourceTree = "<group>"; };
@@ -92,7 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3650E891EEA798000B3D2BB /* PageMenuKit.framework in Frameworks */,
+				B3FA139D23A2A86D00F1C379 /* PageMenuKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +205,7 @@
 				B3FD5BC01EE96AC000842272 /* Sources */,
 				B3FD5BC11EE96AC000842272 /* Frameworks */,
 				B3FD5BC21EE96AC000842272 /* Resources */,
+				B3FA139F23A2A86E00F1C379 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -209,17 +224,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Kouichi ABE (WALL)";
 				TargetAttributes = {
+					B33FF34C258B2415004DBC52 = {
+						CreatedOnToolsVersion = 12.3;
+						ProvisioningStyle = Automatic;
+					};
 					B3FD5BAC1EE967A000842272 = {
 						CreatedOnToolsVersion = 8.3.2;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
-					};
-					B3FD5BBA1EE967FE00842272 = {
-						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = SK88H4B2NN;
 						ProvisioningStyle = Automatic;
 					};
 					B3FD5BC31EE96AC000842272 = {
@@ -242,8 +256,8 @@
 			projectRoot = "";
 			targets = (
 				B3FD5BAC1EE967A000842272 /* PageMenuKit */,
-				B3FD5BBA1EE967FE00842272 /* PageMenuKitFatBinary */,
 				B3FD5BC31EE96AC000842272 /* PageMenuKitDemo */,
+				B33FF34C258B2415004DBC52 /* PageMenuKitSwiftXCFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -268,31 +282,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B3FD5BBE1EE9681B00842272 /* ShellScript */ = {
+		B33FF353258B2426004DBC52 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
+			);
+			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\n#MY_FRAMEWORK_NAME=${PROJECT_NAME}\nMY_FRAMEWORK_NAME=\"PageMenuKit\"\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n#ARCHS_IOS=\"arm64 armv7 armv7s\"\n#ARCHS_SIMULATOR=\"i386 x86_64\"\nARCHS_IOS=\"arm64\"\nARCHS_SIMULATOR=\"x86_64\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild BITCODE_GENERATION_MODE=bitcode OTHER_CFLAGS=\"-fembed-bitcode\" -target \"${MY_FRAMEWORK_NAME}\" ONLY_ACTIVE_ARCH=NO ARCHS=\"${ARCHS_IOS}\" -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild BITCODE_GENERATION_MODE=bitcode OTHER_CFLAGS=\"-fembed-bitcode\" -target \"${MY_FRAMEWORK_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO ARCHS=\"${ARCHS_SIMULATOR}\" BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${MY_FRAMEWORK_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${MY_FRAMEWORK_NAME}.framework/Modules/${MY_FRAMEWORK_NAME}.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${MY_FRAMEWORK_NAME}.framework/Modules/${MY_FRAMEWORK_NAME}.swiftmodule\"\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${MY_FRAMEWORK_NAME}.framework/${MY_FRAMEWORK_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${MY_FRAMEWORK_NAME}.framework/${MY_FRAMEWORK_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${MY_FRAMEWORK_NAME}.framework/${MY_FRAMEWORK_NAME}\"\n\n# Step 5. Convenience step to copy the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${MY_FRAMEWORK_NAME}.framework\" \"${PROJECT_DIR}\"\n\n# Step 6. Convenience step to open the project's directory in Finder\nopen \"${PROJECT_DIR}\"\n";
-		};
-		B3FD5BBF1EE9684A00842272 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n#MY_FRAMEWORK_NAME=${PROJECT_NAME}\nMY_FRAMEWORK_NAME=\"PageMenuKit\"\nlipo -info \"${PROJECT_DIR}/${MY_FRAMEWORK_NAME}.framework/${MY_FRAMEWORK_NAME}\"";
+			shellScript = "#!/bin/sh\n\nOUTPUT_FOLDER=${BUILD_DIR}/${CONFIGURATION}-xcframework\n\nARCHS_IOS=\"arm64\"\nARCHS_SIMULATOR=\"x86_64\"\n\nSCHEME_NAME=\"PageMenuKit\"\n\n# make sure the output directory exists\nmkdir -p \"${OUTPUT_FOLDER}\"\n\n# Step 1. Archive Device and Simulator versions\nmk_archive() {\n  archs=$1\n  platform=$2\n  output=$3\n\n  xcodebuild \\\n  ENABLE_BITCODE=YES \\\n  BITCODE_GENERATION_MODE=bitcode \\\n  OTHER_CFLAGS=\"-fembed-bitcode\" \\\n  BUILD_LIBRARY_FOR_DISTRIBUTION=YES \\\n  SKIP_INSTALL=NO \\\n  ONLY_ACTIVE_ARCH=YES \\\n  ARCHS=\"${archs}\" \\\n  -project \"${PROJECT_NAME}.xcodeproj\" \\\n  -configuration \"${CONFIGURATION}\" \\\n  -scheme \"${SCHEME_NAME}\" \\\n  -destination \"generic/platform=${platform}\" \\\n  -archivePath \"${OUTPUT_FOLDER}/${PROJECT_NAME}-${output}\" \\\n  archive\n}\n\nmk_archive ${ARCHS_IOS} \"iOS\" \"iOS\"\nmk_archive ${ARCHS_SIMULATOR} \"iOS Simulator\" \"iOS_Simulator\"\n\n# Step 2. Create xcframework with all frameworks\nxcodebuild \\\n-create-xcframework \\\n-framework \"${OUTPUT_FOLDER}/${PROJECT_NAME}-iOS.xcarchive/Products/Library/Frameworks/${SCHEME_NAME}.framework\" \\\n-framework \"${OUTPUT_FOLDER}/${PROJECT_NAME}-iOS_Simulator.xcarchive/Products/Library/Frameworks/${SCHEME_NAME}.framework\" \\\n-output \"${OUTPUT_FOLDER}/${SCHEME_NAME}.xcframework\"\n\n# Step 3. Convenience step to open the output's directory in Finder\nopen \"${OUTPUT_FOLDER}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -349,6 +354,22 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B33FF34D258B2415004DBC52 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B33FF34E258B2415004DBC52 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		B3FD5BA31EE966FC00842272 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -359,15 +380,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -390,7 +419,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -410,15 +439,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -435,7 +472,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -449,7 +486,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -457,6 +494,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = PageMenuKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.magickworx.PageMenuKit;
@@ -475,7 +513,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -483,6 +521,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = PageMenuKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.magickworx.PageMenuKit;
@@ -495,29 +534,13 @@
 			};
 			name = Release;
 		};
-		B3FD5BBC1EE967FE00842272 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		B3FD5BBD1EE967FE00842272 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		B3FD5BD41EE96AC100842272 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PageMenuKitDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.magickworx.PageMenuKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -532,7 +555,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PageMenuKitDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.magickworx.PageMenuKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -544,6 +567,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B33FF34F258B2415004DBC52 /* Build configuration list for PBXAggregateTarget "PageMenuKitSwiftXCFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B33FF34D258B2415004DBC52 /* Debug */,
+				B33FF34E258B2415004DBC52 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B3FD5B8E1EE966FB00842272 /* Build configuration list for PBXProject "PageMenuKitSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -558,15 +590,6 @@
 			buildConfigurations = (
 				B3FD5BB71EE967A000842272 /* Debug */,
 				B3FD5BB81EE967A000842272 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B3FD5BBB1EE967FE00842272 /* Build configuration list for PBXAggregateTarget "PageMenuKitFatBinary" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B3FD5BBC1EE967FE00842272 /* Debug */,
-				B3FD5BBD1EE967FE00842272 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
