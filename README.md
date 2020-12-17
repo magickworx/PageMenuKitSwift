@@ -9,7 +9,7 @@ Swift で実装し直す際に、汎用的で拡張しやすいようにクラ�
 
 ## How to use PageMenuKit.framework
 
-Xcode の Build Target に PageMenuKitFatBinary を指定して Build を実行すると、PageMenuKit.framework が作成される。これを自作アプリの Xcode の Project で設定する。
+Xcode の Build Target に PageMenuKitXCFramework を指定して Build を実行すると、PageMenuKit.xcframework が作成される。これを自作アプリの Xcode の Project で設定する。
 
 あとは、以下のようなコードを記述して利用する。
 
@@ -219,9 +219,9 @@ Qiita の[ニュース系アプリのユーザインタフェース PageMenuKit 
 
 ## Requirements
 
- - Swift 4.2
- - iOS 12.1 or later
- - Xcode 10.1 or later
+ - Swift 5
+ - iOS 13.6 or later
+ - Xcode 12.3 or later
 
 ## ToDo
 
@@ -229,7 +229,7 @@ Qiita の[ニュース系アプリのユーザインタフェース PageMenuKit 
 
 ## License Agreement
 
-Copyright (c) 2017-2019, Kouichi ABE (WALL) All rights reserved.
+Copyright (c) 2017-2020, Kouichi ABE (WALL) All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
